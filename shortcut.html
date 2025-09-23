@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4A90E2">
+  <title>😍</title>
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 15px;
+      background: #fdfdfd;
+      color: #222;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+    h1 {
+      font-size: 22px;
+      margin: 30px 0 15px;
+      border-left: 4px solid #4A90E2;
+      padding-left: 10px;
+      color: #333;
+    }
+    h2 {
+      font-size: 18px;
+      margin-top: 20px;
+      color: #111;
+    }
+    p {
+      margin: 8px 0 15px;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-size: 14px;
+    }
+    code {
+      background: #eee;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 15px;
+        padding: 10px;
+      }
+      h1 {
+        font-size: 20px;
+      }
+      h2 {
+        font-size: 17px;
+      }
+    }
+  </style>
+</head>
+<script>
+    if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js');
+    }
+</script>
+<body>
+
+<h1>🔹 Azure Fundamentals Q&A</h1>
+<p><strong>1. What is Microsoft Azure?</strong><br>
+Azure is Microsoft’s cloud platform that provides IaaS, PaaS, and SaaS services like VMs, App Service, Storage, Databases, and AI tools.</p>
+
+<p><strong>2. What is the difference between IaaS, PaaS, and SaaS?</strong><br>
+IaaS → Infrastructure (VMs, Networks, Storage). Ex: Azure VM.<br>
+PaaS → Platform (host apps without managing OS). Ex: Azure App Service.<br>
+SaaS → Ready-to-use software. Ex: Office 365.</p>
+
+<p><strong>3. What are Azure Regions and Availability Zones?</strong><br>
+Region → Geographical location (ex: East US, West Europe).<br>
+Availability Zone → Separate datacenter inside a region for high availability.</p>
+
+<p><strong>4. What is a Resource Group?</strong><br>
+A logical container for Azure resources like VMs, storage, databases. Makes management and access control easier.</p>
+
+<p><strong>5. What is Azure Subscription vs Tenant?</strong><br>
+Tenant → Represents an Azure AD instance (identity).<br>
+Subscription → Represents billing and resource container.</p>
+
+<p><strong>6. What is Azure App Service?</strong><br>
+A PaaS that lets you deploy .NET Core, Node, Java apps without managing servers. Supports scaling and deployment slots.</p>
+
+<p><strong>7. What are Deployment Slots in App Service?</strong><br>
+Separate environments (staging, production) where you can deploy and swap apps with zero downtime.</p>
+
+<p><strong>8. What is Azure Blob Storage?</strong><br>
+Storage service for unstructured data (images, videos, backups). Cheaper and scalable compared to SQL.</p>
+
+<p><strong>9. What is Azure Key Vault?</strong><br>
+Secure service for secrets, keys, and certificates. .NET Core apps can fetch secrets securely instead of storing them in config.</p>
+
+<p><strong>10. What is Azure Service Bus?</strong><br>
+A message broker for reliable communication between apps (queue/topic-based messaging).</p>
+
+<p><strong>11. What is Application Insights?</strong><br>
+A monitoring tool in Azure for logs, performance metrics, and exceptions. Can integrate with .NET Core logging.</p>
+
+<p><strong>12. Difference: Azure SQL Database vs SQL Server on VM?</strong><br>
+Azure SQL Database → Managed PaaS DB (auto backup, scaling).<br>
+SQL Server on VM → Full control (IaaS), you manage updates/backups.</p>
+
+<h1>🔹 .NET Core + Azure Specific Q&A</h1>
+<p><strong>13. How do you deploy a .NET Core API to Azure?</strong><br>
+Publish from Visual Studio → Azure App Service.<br>
+Or use Azure DevOps/GitHub Actions CI/CD pipeline.</p>
+
+<p><strong>14. How do you manage connection strings in Azure?</strong><br>
+Use App Service Configuration settings or Azure Key Vault. They override appsettings.json.</p>
+
+<p><strong>15. How do you monitor a .NET Core app in Azure?</strong><br>
+Enable Application Insights.<br>
+Use ILogger in .NET Core → logs automatically go to App Insights.</p>
+
+<p><strong>16. How do you secure a .NET Core API with Azure AD?</strong><br>
+Register the API in Azure AD.<br>
+Protect it with JWT Bearer authentication in .NET Core.<br>
+Clients request tokens via Azure AD → API validates token.</p>
+
+<p><strong>17. How do you scale a .NET Core app in Azure?</strong><br>
+Vertical scaling → increase App Service Plan size.<br>
+Horizontal scaling → auto-scale based on CPU, memory, or schedule.</p>
+
+<p><strong>18. How do you use Azure Blob Storage in .NET Core?</strong><br>
+Use Azure.Storage.Blobs NuGet package.<br>
+Example:<br>
+<pre><code>var blobClient = new BlobClient(connStr, "mycontainer", "file.txt");
+await blobClient.UploadAsync(stream);</code></pre></p>
+
+<p><strong>19. How do you integrate Azure Service Bus with .NET Core?</strong><br>
+Use Azure.Messaging.ServiceBus NuGet package.<br>
+Send and receive messages asynchronously.</p>
+
+<p><strong>20. How do you use Azure Redis Cache in .NET Core?</strong><br>
+Install StackExchange.Redis.<br>
+<pre><code>var cache = ConnectionMultiplexer.Connect(connStr).GetDatabase();
+cache.StringSet("key", "value");</code></pre></p>
+
+<h1>🔹 Scenario-Based Q&A</h1>
+<p><strong>21. Your .NET Core API in Azure App Service is slow. How do you troubleshoot?</strong><br>
+Check Application Insights for response time & dependencies.<br>
+Scale up/out the App Service.<br>
+Check SQL Database performance (DTUs/Query tuning).</p>
+
+<p><strong>22. How do you achieve zero-downtime deployment?</strong><br>
+Use App Service Deployment Slots.<br>
+Deploy to staging → Swap with production.</p>
+
+<p><strong>23. How do you handle secrets (like DB passwords)?</strong><br>
+Store in Azure Key Vault.<br>
+Access using Managed Identity in .NET Core.</p>
+
+<p><strong>24. How do you support global users with low latency?</strong><br>
+Use Azure Front Door or Traffic Manager for routing.<br>
+Host app in multiple regions.</p>
+
+<p><strong>25. How do you implement CI/CD for .NET Core with Azure?</strong><br>
+Use Azure DevOps Pipelines:<br>
+Build pipeline → restore, build, test, publish.<br>
+Release pipeline → deploy to App Service.</p>
+
+<h1>🔹 Dependency Injection in .NET Core – Interview Q&A</h1>
+
+<p><strong>1. What is Dependency Injection (DI)?</strong><br>
+Dependency Injection is a design pattern where a class’s dependencies are provided (injected) from the outside instead of creating them inside the class.  
+In .NET Core, DI is built-in and encourages loose coupling, testability, and maintainability.</p>
+
+<p><strong>2. What problem does DI solve?</strong><br>
+✔ Removes tight coupling between classes.<br>
+✔ Makes code easier to test (mock dependencies).<br>
+✔ Follows SOLID principles (especially Dependency Inversion Principle).</p>
+
+<p><strong>3. How is DI implemented in .NET Core?</strong><br>
+In <code>Program.cs</code> (or <code>Startup.cs</code> in older versions), services are registered in the built-in IoC container using:<br>
+<code>AddSingleton&lt;T&gt;()</code>, <code>AddScoped&lt;T&gt;()</code>, <code>AddTransient&lt;T&gt;()</code><br>
+Example:<br>
+<pre><code>builder.Services.AddScoped&lt;IUserService, UserService&gt;();</code></pre></p>
+
+<p><strong>4. What are the DI lifetimes in .NET Core?</strong><br>
+🔹 Transient → New instance every time it’s requested.<br>
+🔹 Scoped → One instance per HTTP request.<br>
+🔹 Singleton → Same instance for the entire app lifetime.</p>
+
+<p><strong>5. Can you give an example of DI in a Controller?</strong></p>
+<pre><code>public class OrderController : Controller
+{
+    private readonly IOrderService _orderService;
+    public OrderController(IOrderService orderService) 
+    {
+        _orderService = orderService;
+    }
+
+    public IActionResult Index()
+    {
+        var orders = _orderService.GetAll();
+        return View(orders);
+    }
+}
+</code></pre>
+
+<p><strong>6. How do you inject services into non-controller classes?</strong><br>
+✔ Use constructor injection in custom classes.<br>
+✔ Or inject <code>IServiceProvider</code> / <code>IHttpContextAccessor</code>.<br>
+Example:<br>
+<pre><code>public class ReportGenerator
+{
+    private readonly ILogger&lt;ReportGenerator&gt; _logger;
+    public ReportGenerator(ILogger&lt;ReportGenerator&gt; logger)
+    {
+        _logger = logger;
+    }
+}
+</code></pre></p>
+
+<p><strong>7. Can we inject multiple implementations of the same interface?</strong><br>
+Yes ✅ Register multiple and use <code>IEnumerable&lt;T&gt;</code>:<br>
+<pre><code>public ReportService(IEnumerable&lt;IReportGenerator&gt; generators) { ... }</code></pre>
+Or use named options/factory pattern for conditional resolution.</p>
+
+<p><strong>8. What is the difference between AddSingleton, AddScoped, and AddTransient?</strong><br>
+✔ AddSingleton → Same instance shared across all requests.<br>
+✔ AddScoped → Same instance per HTTP request.<br>
+✔ AddTransient → Always new instance per use.</p>
+
+<p><strong>9. How is DI different in .NET Core vs ASP.NET Framework?</strong><br>
+🔹 ASP.NET Core → DI is built-in.<br>
+🔹 Old ASP.NET Framework → Needed third-party containers (Autofac, Ninject, Unity).</p>
+
+<p><strong>10. How can you resolve dependencies manually inside a method?</strong><br>
+Inject <code>IServiceProvider</code>:<br>
+<pre><code>public class MyClass
+{
+    private readonly IServiceProvider _serviceProvider;
+    public MyClass(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
+
+    public void Run()
+    {
+        var myService = _serviceProvider.GetRequiredService&lt;IMyService&gt;();
+    }
+}
+</code></pre></p>
+
+<p><strong>11. Can you inject configuration values?</strong><br>
+Yes ✅ using <code>IOptions&lt;T&gt;</code> / <code>IOptionsSnapshot&lt;T&gt;</code> / <code>IOptionsMonitor&lt;T&gt;</code>:<br>
+<pre><code>public class MyController
+{
+    private readonly MySettings _settings;
+    public MyController(IOptions&lt;MySettings&gt; options)
+    {
+        _settings = options.Value;
+    }
+}
+</code></pre></p>
+
+<p><strong>12. Can static classes be injected?</strong><br>
+No 🚫 because static classes cannot implement interfaces or have constructors. Instead, wrap them in a service and inject that.</p>
+
+<p><strong>13. What are some common pitfalls with DI?</strong><br>
+⚠ Registering wrong lifetime (e.g., Singleton DbContext → threading issues).<br>
+⚠ Overusing <code>IServiceProvider</code> (Service Locator anti-pattern).<br>
+⚠ Over-injecting too many dependencies in one class.</p>
+
+<p><strong>14. How do you inject DbContext in .NET Core?</strong><br>
+<pre><code>builder.Services.AddDbContext&lt;AppDbContext&gt;(options =&gt;
+    options.UseSqlServer(connectionString));
+</code></pre></p>
+
+<p><strong>15. How does DI support Unit Testing?</strong><br>
+You can inject mock/fake implementations instead of real services.<br>
+Example with Moq:<br>
+<pre><code>var mockService = new Mock&lt;IOrderService&gt;();
+mockService.Setup(s =&gt; s.GetAll()).Returns(new List&lt;Order&gt;());</code></pre></p>
+
+<h1>🔹 Middleware in .NET Core – Interview Q&A</h1>
+
+<p><strong>1. What is Middleware in .NET Core?</strong><br>
+Middleware is a software component in the request pipeline that processes HTTP requests and responses. Each middleware can:<br>
+✔ Do something before passing the request to the next middleware.<br>
+✔ Do something after the next middleware finishes.</p>
+
+<p><strong>2. How does the Middleware pipeline work?</strong><br>
+The pipeline is built in <code>Program.cs</code> (or <code>Startup.cs</code> in older versions).<br>
+Each middleware is executed in the order it is registered.<br>
+Example:<br>
+<pre><code>app.UseAuthentication();
+app.UseAuthorization();
+app.UseEndpoints(...);</code></pre></p>
+
+<p><strong>3. What are some built-in Middlewares in ASP.NET Core?</strong><br>
+✔ <code>UseRouting()</code> → matches incoming requests to routes.<br>
+✔ <code>UseAuthentication()</code> → handles authentication.<br>
+✔ <code>UseAuthorization()</code> → enforces access rules.<br>
+✔ <code>UseStaticFiles()</code> → serves CSS/JS/images.<br>
+✔ <code>UseExceptionHandler()</code> / <code>UseDeveloperExceptionPage()</code> → error handling.</p>
+
+<p><strong>4. How do you create custom Middleware in .NET Core?</strong><br>
+Option 1: Using a class<br>
+<pre><code>public class CustomMiddleware
+{
+    private readonly RequestDelegate _next;
+    public CustomMiddleware(RequestDelegate next) =&gt; _next = next;
+
+    public async Task InvokeAsync(HttpContext context)
+    {
+        // before
+        await context.Response.WriteAsync("Hello from middleware! ");
+        await _next(context); // call next middleware
+        // after
+    }
+}</code></pre>
+
+Register:<br>
+<pre><code>app.UseMiddleware&lt;CustomMiddleware&gt;();</code></pre>
+
+Option 2: Inline delegate<br>
+<pre><code>app.Use(async (context, next) =&gt;
+{
+    await context.Response.WriteAsync("Before ");
+    await next.Invoke();
+    await context.Response.WriteAsync("After ");
+});</code></pre></p>
+
+<p><strong>5. What is the difference between Use, Run, and Map?</strong><br>
+✔ <code>Use</code> → Adds middleware and calls the next one.<br>
+✔ <code>Run</code> → Terminates pipeline, does not call next.<br>
+✔ <code>Map</code> → Branches pipeline based on request path.<br>
+Example:<br>
+<pre><code>app.Use(async (ctx, next) =&gt; { await next(); }); // continue
+app.Run(async ctx =&gt; { await ctx.Response.WriteAsync("End"); }); // stop
+app.Map("/admin", appBuilder =&gt; { ... }); // branch</code></pre></p>
+
+<p><strong>6. Can middleware be skipped or short-circuited?</strong><br>
+Yes ✅ If a middleware does not call <code>await _next(context)</code>, the request pipeline stops there.</p>
+
+<p><strong>7. How do middleware and filters differ in .NET Core?</strong><br>
+✔ Middleware → works at global request/response level, before MVC routing.<br>
+✔ Filters → specific to MVC/Web API actions (controller/action level).</p>
+
+<p><strong>8. What is the order of middleware execution?</strong><br>
+Order matters ✅<br>
+Registered order = request execution order.<br>
+Reverse order = response execution order.<br>
+Example:<br>
+Request → Middleware1 → Middleware2 → Controller<br>
+Response ← Middleware1 ← Middleware2 ← Controller</p>
+
+<p><strong>9. Where do we configure middleware?</strong><br>
+In <code>Program.cs</code> (or <code>Startup.cs</code> in older .NET Core versions), inside the app pipeline:<br>
+<pre><code>var app = builder.Build();
+app.UseRouting();
+app.UseAuthorization();</code></pre></p>
+
+<p><strong>10. Can middleware depend on Dependency Injection?</strong><br>
+Yes ✅ You can inject services via constructor:<br>
+<pre><code>public class MyMiddleware
+{
+    private readonly RequestDelegate _next;
+    private readonly ILogger&lt;MyMiddleware&gt; _logger;
+    public MyMiddleware(RequestDelegate next, ILogger&lt;MyMiddleware&gt; logger)
+    {
+        _next = next; _logger = logger;
+    }
+    public async Task InvokeAsync(HttpContext context) { ... }
+}</code></pre></p>
+
+<p><strong>11. When should you use Middleware vs Delegating Handler?</strong><br>
+✔ Middleware → For cross-cutting concerns at application level (logging, auth, exception handling).<br>
+✔ Delegating Handler → For HTTP client pipelines (<code>HttpClientFactory</code>).</p>
+
+<p><strong>12. Give some examples of custom middleware use cases.</strong><br>
+✔ Logging request/response.<br>
+✔ Custom error handling.<br>
+✔ IP restriction / request filtering.<br>
+✔ Adding custom headers.<br>
+✔ Request timing / performance monitoring.</p>
+
+  <h2>🔹 Caching in .NET Core – Interview Q&A</h2>
+
+  <div class="qa-block">
+    <h3>1. What is caching in .NET Core?</h3>
+    <p><strong>Answer:</strong> Caching is a technique of storing frequently used data in memory so that future requests can be served faster without hitting the database or external service repeatedly.</p>
+  </div>
+
+  <div class="qa-block">
+    <h3>2. What are the types of caching in ASP.NET Core?</h3>
+    <ul>
+      <li><strong>In-Memory Caching</strong> → Data stored in server memory.</li>
+      <li><strong>Distributed Caching</strong> → Shared cache across servers (e.g., SQL Server, Redis).</li>
+      <li><strong>Response Caching</strong> → Caches full HTTP responses.</li>
+      <li><strong>Output Caching</strong> (from .NET 7) → Caches action results at framework level.</li>
+    </ul>
+  </div>
+
+  <div class="qa-block">
+    <h3>3. What is the difference between In-Memory Cache and Distributed Cache?</h3>
+    <p><strong>Answer:</strong></p>
+    <ul>
+      <li><strong>In-Memory Cache</strong> → Stored in memory of a single server, fast but not shared.</li>
+      <li><strong>Distributed Cache</strong> → Stored centrally (Redis, SQL Server), available to multiple app servers.</li>
+    </ul>
+  </div>
+
+  <div class="qa-block">
+    <h3>4. How do you configure In-Memory Caching in .NET Core?</h3>
+    <pre><code>builder.Services.AddMemoryCache();</code></pre>
+    <pre><code>public class ProductController : Controller
+{
+    private readonly IMemoryCache _cache;
+    public ProductController(IMemoryCache cache) => _cache = cache;
+
+    public IActionResult GetProduct()
+    {
+        var product = _cache.GetOrCreate("product_1", entry =>
+        {
+            entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
+            return "Cached Product";
+        });
+        return Ok(product);
+    }
+}</code></pre>
+  </div>
+
+  <div class="qa-block">
+    <h3>5. What is Sliding vs Absolute Expiration?</h3>
+    <p><strong>Answer:</strong></p>
+    <ul>
+      <li><strong>Absolute Expiration</strong> → Item removed after a fixed time.</li>
+      <li><strong>Sliding Expiration</strong> → Item removed if not accessed within a given time.</li>
+    </ul>
+  </div>
+
+  <div class="qa-block">
+    <h3>6. How do you implement Distributed Caching?</h3>
+    <pre><code>builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "localhost:6379";
+});</code></pre>
+    <pre><code>private readonly IDistributedCache _cache;
+public MyService(IDistributedCache cache) => _cache = cache;
+
+public async Task&lt;string&gt; GetDataAsync()
+{
+    var data = await _cache.GetStringAsync("key1");
+    if (data == null)
+    {
+        data = "Hello from DB";
+        await _cache.SetStringAsync("key1", data,
+            new DistributedCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
+            });
+    }
+    return data;
+}</code></pre>
+  </div>
+
+  <div class="qa-block">
+    <h3>7. What is Response Caching Middleware?</h3>
+    <pre><code>app.UseResponseCaching();</code></pre>
+    <pre><code>[ResponseCache(Duration = 60)]
+public IActionResult Index() => View();</code></pre>
+  </div>
+
+  <div class="qa-block">
+    <h3>8. What is the difference between Response Caching and Output Caching?</h3>
+    <ul>
+      <li><strong>Response Caching</strong> → Client/proxy caching using HTTP headers.</li>
+      <li><strong>Output Caching</strong> (new in .NET 7+) → Caches action results at server-side framework level.</li>
+    </ul>
+  </div>
+
+  <div class="qa-block">
+    <h3>9. How do you remove an item from cache?</h3>
+    <pre><code>_cache.Remove("product_1");</code></pre>
+  </div>
+
+  <div class="qa-block">
+    <h3>10. What is cache invalidation?</h3>
+    <p><strong>Answer:</strong> The process of removing or refreshing stale cache data when the underlying source data changes.</p>
+    <ul>
+      <li>Time-based (absolute/sliding expiration)</li>
+      <li>Manual invalidation</li>
+      <li>Event-driven (invalidate when DB updates)</li>
+    </ul>
+  </div>
+
+  <div class="qa-block">
+    <h3>11. Can you cache complex objects?</h3>
+    <p><strong>Answer:</strong> Yes ✅ In In-Memory Cache directly. For Distributed Cache (Redis/SQL), serialize object (JSON, binary) before storing.</p>
+  </div>
+
+  <div class="qa-block">
+    <h3>12. What are cache tags or cache dependencies?</h3>
+    <p><strong>Answer:</strong> Use <code>IChangeToken</code> to invalidate cache when configs or external triggers change.</p>
+  </div>
+
+  <div class="qa-block">
+    <h3>13. What are best practices for caching in .NET Core?</h3>
+    <ul>
+      <li>Use caching for read-heavy, infrequently changing data.</li>
+      <li>Use Distributed Cache in load-balanced apps.</li>
+      <li>Avoid caching sensitive data.</li>
+      <li>Set proper expiration policies.</li>
+      <li>Monitor cache hit/miss ratios.</li>
+    </ul>
+  </div>
+
+  <div class="qa-block">
+    <h3>14. What is cache stampede and how do you prevent it?</h3>
+    <p><strong>Answer:</strong> Cache stampede = multiple requests hit the DB when cache expires at the same time.</p>
+    <ul>
+      <li>Locking (only one request refreshes cache).</li>
+      <li>Staggered Expiration.</li>
+      <li>Background refresh.</li>
+    </ul>
+  </div>
+
+  <div class="qa-block">
+    <h3>15. What is the difference between Cache vs Session in ASP.NET Core?</h3>
+    <ul>
+      <li><strong>Cache</strong> → Stores data for performance, not user-specific.</li>
+      <li><strong>Session</strong> → Stores user-specific data (e.g., shopping cart).</li>
+    </ul>
+  </div>
+
+   <!-- Angular Section -->
+  <h2>🔹 Angular Key Concepts – Interview Q&A</h2>
+
+  <div class="qa-block">
+    <h3>1. What is Lazy Loading in Angular?</h3>
+    <p><strong>Brief Description:</strong>  
+    Lazy Loading means loading Angular feature modules only when they are needed (on-demand). Instead of loading everything at once, Angular loads modules when the user navigates to that route. This reduces initial load time and improves performance.</p>
+    <p><strong>Interview Answer:</strong>  
+    Lazy loading is used to optimize performance by splitting the app into smaller bundles and loading modules only when required. For example, the <code>AdminModule</code> will load only when the user navigates to <code>/admin</code>.</p>
+    <pre><code>// Example route with lazy loading
+const routes: Routes = [
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }
+];</code></pre>
+  </div>
+
+  <div class="qa-block">
+    <h3>2. What are Reactive Forms in Angular?</h3>
+    <p><strong>Brief Description:</strong>  
+    Reactive Forms are model-driven, meaning the form structure is defined in the TypeScript code. They are powerful for complex validations, dynamic forms, and testing.</p>
+    <p><strong>Interview Answer:</strong>  
+    In Reactive Forms, form data and validation logic are handled in the component class, making forms more scalable and testable compared to template-driven forms. We use <code>FormGroup</code>, <code>FormControl</code>, and <code>Validators</code>.</p>
+    <pre><code>import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+form = new FormGroup({
+  name: new FormControl('', Validators.required),
+  email: new FormControl('', [Validators.required, Validators.email])
+});</code></pre>
+  </div>
+
+  <div class="qa-block">
+    <h3>3. How is Dependency Injection (DI) used in Angular?</h3>
+    <p><strong>Brief Description:</strong>  
+    Dependency Injection is a design pattern that supplies a class with its dependencies instead of creating them itself. Angular has a built-in DI system to provide services and share data across components.</p>
+    <p><strong>Interview Answer:</strong>  
+    In Angular, services are registered in providers (usually with <code>@Injectable({ providedIn: 'root' })</code>) and injected into components or other services via constructor injection. This makes the app modular, reusable, and easier to test.</p>
+    <pre><code>@Injectable({ providedIn: 'root' })
+export class UserService {
+  getUsers() { return ['John', 'Jane']; }
+}
+
+@Component({...})
+export class UserComponent {
+  constructor(private userService: UserService) {}
+}</code></pre>
+  </div>
+
+  <div class="qa-block">
+    <h3>4. What is NgRx in Angular?</h3>
+    <p><strong>Brief Description:</strong>  
+    NgRx is a state management library for Angular based on Redux principles. It uses a single store for the entire app state and ensures predictable state management with unidirectional data flow.</p>
+    <p><strong>Interview Answer:</strong>  
+    NgRx manages application state using <strong>Actions</strong> (events), <strong>Reducers</strong> (pure functions that update state), <strong>Selectors</strong> (to query state), and <strong>Effects</strong> (to handle async tasks like API calls). It is widely used in large Angular applications for scalability and consistency.</p>
+    <ul>
+      <li><strong>Actions</strong> → Events describing what happened.</li>
+      <li><strong>Reducers</strong> → Functions deciding how state changes.</li>
+      <li><strong>Selectors</strong> → Fetch parts of the state for components.</li>
+      <li><strong>Effects</strong> → Handle async tasks like API calls.</li>
+    </ul>
+    <pre><code>// Example Action
+export const loadUsers = createAction('[User] Load Users');
+
+// Example Reducer
+const userReducer = createReducer(initialState,
+  on(loadUsers, state => ({ ...state, loading: true }))
+);</code></pre>
+  </div>
+
+  <div class="qa-block">
+    <h3>5. What are the benefits of using NgRx?</h3>
+    <p><strong>Answer:</strong></p>
+    <ul>
+      <li>Centralized state management across the app.</li>
+      <li>Predictable and consistent state transitions.</li>
+      <li>Helps debug using Redux DevTools.</li>
+      <li>Improves testability and maintainability.</li>
+      <li>Useful in large, complex applications with shared state.</li>
+    </ul>
+  </div>
+
+  <h1>🔹 Azure Services – Interview Q&A</h1>
+
+<div class="qa-block">
+  <h3>1. What is Azure App Service?</h3>
+  <p><strong>Answer:</strong> Azure App Service is a fully managed PaaS for hosting web apps, REST APIs, and mobile backends. It supports .NET, Node.js, Java, Python, and PHP with built-in scaling, CI/CD integration, and deployment slots for zero-downtime releases.</p>
+</div>
+
+<div class="qa-block">
+  <h3>2. What are Azure Function Apps?</h3>
+  <p><strong>Answer:</strong> Azure Functions are serverless compute services that let you run event-driven code without managing infrastructure. Function Apps group multiple functions together for easier deployment, scaling, and configuration. Billing is consumption-based (pay per execution).</p>
+</div>
+
+<div class="qa-block">
+  <h3>3. What is Azure SQL Database and how does it differ from SQL Server on VM?</h3>
+  <p><strong>Answer:</strong> Azure SQL Database is a fully managed PaaS relational database with built-in backup, scaling, and high availability. Unlike SQL Server on a VM (IaaS), you don’t manage OS or patches. Azure SQL supports scaling, automatic tuning, and geo-replication.</p>
+</div>
+
+<div class="qa-block">
+  <h3>4. What are the different types of Azure Storage?</h3>
+  <p><strong>Answer:</strong></p>
+  <ul>
+    <li><strong>Blob Storage</strong> → Unstructured data (images, videos, backups).</li>
+    <li><strong>Table Storage</strong> → NoSQL key-value store.</li>
+    <li><strong>Queue Storage</strong> → Message storage for decoupled apps.</li>
+    <li><strong>File Storage</strong> → SMB-based file shares in the cloud.</li>
+  </ul>
+</div>
+
+<div class="qa-block">
+  <h3>5. What is Azure Logic Apps?</h3>
+  <p><strong>Answer:</strong> Logic Apps is a serverless workflow automation service. It allows you to integrate apps, data, and services using prebuilt connectors (like Office 365, Salesforce, SAP). It’s low-code/no-code and ideal for business process automation.</p>
+</div>
+
+<div class="qa-block">
+  <h3>6. What is Azure Key Vault and why is it important?</h3>
+  <p><strong>Answer:</strong> Azure Key Vault is a secure store for secrets, keys, and certificates. It helps protect sensitive information (DB passwords, API keys) and integrates with Azure AD and Managed Identities so apps don’t store secrets in configuration files.</p>
+</div>
+
+<div class="qa-block">
+  <h3>7. How do you connect a .NET Core app with Azure Key Vault?</h3>
+  <p><strong>Answer:</strong> Use Managed Identity + <code>Azure.Security.KeyVault.Secrets</code> SDK. Example:</p>
+  <pre><code>var client = new SecretClient(
+    new Uri("https://myvault.vault.azure.net/"),
+    new DefaultAzureCredential());
+KeyVaultSecret secret = await client.GetSecretAsync("DbPassword");
+string dbPassword = secret.Value;</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>8. When should you use Function Apps vs Logic Apps?</h3>
+  <p><strong>Answer:</strong></p>
+  <ul>
+    <li><strong>Function Apps</strong> → Best for custom code, event-driven processing, microservices.</li>
+    <li><strong>Logic Apps</strong> → Best for orchestrating workflows, integrating services via connectors, minimal coding required.</li>
+  </ul>
+</div>
+
+<h1>🔹 .NET Core – OOPs Concepts Q&A</h1>
+
+<div class="qa-block">
+  <h3>1. What are the four pillars of OOP in .NET?</h3>
+  <p><strong>Answer:</strong></p>
+  <ul>
+    <li><strong>Encapsulation</strong> → Wrapping data & methods in a class.</li>
+    <li><strong>Abstraction</strong> → Hiding implementation details.</li>
+    <li><strong>Inheritance</strong> → Extending base class functionality.</li>
+    <li><strong>Polymorphism</strong> → Same method behaving differently (overloading/overriding).</li>
+  </ul>
+</div>
+
+<div class="qa-block">
+  <h3>2. Example of Encapsulation</h3>
+  <pre><code>public class BankAccount
+{
+    private decimal balance; // hidden data
+
+    public void Deposit(decimal amount) => balance += amount;
+    public decimal GetBalance() => balance;
+}
+
+// Usage
+var account = new BankAccount();
+account.Deposit(1000);
+Console.WriteLine(account.GetBalance()); // 1000
+</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>3. Example of Abstraction</h3>
+  <pre><code>public abstract class Shape
+{
+    public abstract void Draw(); // hide implementation
+}
+
+public class Circle : Shape
+{
+    public override void Draw() => Console.WriteLine("Drawing Circle");
+}
+
+// Usage
+Shape shape = new Circle();
+shape.Draw();
+</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>4. Example of Inheritance</h3>
+  <pre><code>public class Vehicle
+{
+    public void Start() => Console.WriteLine("Vehicle started");
+}
+
+public class Car : Vehicle
+{
+    public void Drive() => Console.WriteLine("Car is driving");
+}
+
+// Usage
+Car car = new Car();
+car.Start(); // from base
+car.Drive(); // from derived
+</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>5. Example of Polymorphism</h3>
+  <pre><code>public class Animal
+{
+    public virtual void Speak() => Console.WriteLine("Animal sound");
+}
+
+public class Dog : Animal
+{
+    public override void Speak() => Console.WriteLine("Bark");
+}
+
+public class Cat : Animal
+{
+    public override void Speak() => Console.WriteLine("Meow");
+}
+
+// Usage
+Animal a1 = new Dog(); a1.Speak(); // Bark
+Animal a2 = new Cat(); a2.Speak(); // Meow
+</code></pre>
+</div>
+
+  <h1>🔹 Solid principle</h1>
+  <div class="qa-block">
+    <h3>1. What are SOLID Principles?</h3>
+    <p><strong>Answer:</strong> SOLID is an acronym for five object-oriented design principles that improve code maintainability and flexibility:</p>
+    <ul>
+      <li><strong>S</strong> → Single Responsibility Principle (SRP)</li>
+      <li><strong>O</strong> → Open/Closed Principle (OCP)</li>
+      <li><strong>L</strong> → Liskov Substitution Principle (LSP)</li>
+      <li><strong>I</strong> → Interface Segregation Principle (ISP)</li>
+      <li><strong>D</strong> → Dependency Inversion Principle (DIP)</li>
+    </ul>
+  </div>
+
+  <div class="qa-block">
+    <h3>2. What is the Single Responsibility Principle (SRP)?</h3>
+    <p><strong>Answer:</strong> A class should have only one reason to change. It should have a single responsibility.</p>
+    <pre><code>public class InvoicePrinter
+{
+    public void Print(Invoice invoice) { /* print logic */ }
+}</code></pre>
+    <p>Here, InvoicePrinter only handles printing, not calculating totals or storing data.</p>
+  </div>
+
+  <div class="qa-block">
+    <h3>3. What is the Open/Closed Principle (OCP)?</h3>
+    <p><strong>Answer:</strong> Software entities should be open for extension but closed for modification.</p>
+    <pre><code>public abstract class Shape
+{
+    public abstract double Area();
+}
+
+public class Circle : Shape
+{
+    public double Radius { get; set; }
+    public override double Area() => Math.PI * Radius * Radius;
+}</code></pre>
+    <p>You can add new shapes without modifying existing code.</p>
+  </div>
+
+  <div class="qa-block">
+    <h3>4. What is the Liskov Substitution Principle (LSP)?</h3>
+    <p><strong>Answer:</strong> Derived classes must be substitutable for their base classes without breaking the application.</p>
+    <pre><code>public class Bird { public virtual void Fly() { } }
+public class Ostrich : Bird 
+{
+    public override void Fly()
+    {
+        throw new NotSupportedException(); // Violates LSP
+    }
+}</code></pre>
+  </div>
+
+  <div class="qa-block">
+    <h3>5. What is the Interface Segregation Principle (ISP)?</h3>
+    <p><strong>Answer:</strong> No client should be forced to depend on methods it does not use. Split large interfaces into smaller, specific ones.</p>
+    <pre><code>public interface IPrinter { void Print(); }
+public interface IScanner { void Scan(); }</code></pre>
+  </div>
+
+  <div class="qa-block">
+    <h3>6. What is the Dependency Inversion Principle (DIP)?</h3>
+    <p><strong>Answer:</strong> High-level modules should not depend on low-level modules. Both should depend on abstractions (interfaces).</p>
+    <pre><code>public interface IMessageService { void SendMessage(string msg); }
+
+public class EmailService : IMessageService
+{
+    public void SendMessage(string msg) { /* send email */ }
+}
+
+public class Notification
+{
+    private readonly IMessageService _service;
+    public Notification(IMessageService service) => _service = service;
+    public void Alert(string msg) => _service.SendMessage(msg);
+}</code></pre>
+  </div>
+
+  <div class="qa-block">
+    <h3>7. Why are SOLID principles important in interviews?</h3>
+    <p><strong>Answer:</strong> They demonstrate your understanding of maintainable, scalable, and clean OOP design. Interviewers often assess your ability to write flexible and testable code using SOLID principles.</p>
+  </div>
+
+  <h1>🔹 Design Patterns in .NET</h1>
+
+<div class="qa-block">
+  <h3>1. What is the Singleton Pattern?</h3>
+  <p><strong>Answer:</strong> Ensures a class has only one instance and provides a global point of access to it.</p>
+  <pre><code>public class Singleton
+{
+    private static readonly Singleton _instance = new Singleton();
+    private Singleton() { }
+    public static Singleton Instance => _instance;
+}
+</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>2. What is the Builder Pattern?</h3>
+  <p><strong>Answer:</strong> Separates the construction of a complex object from its representation, allowing the same construction process to create different representations.</p>
+  <pre><code>public class Car
+{
+    public string Engine { get; set; }
+    public string Wheels { get; set; }
+}
+
+public class CarBuilder
+{
+    private Car _car = new Car();
+    public CarBuilder SetEngine(string engine) { _car.Engine = engine; return this; }
+    public CarBuilder SetWheels(string wheels) { _car.Wheels = wheels; return this; }
+    public Car Build() => _car;
+}
+</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>3. What is the Prototype Pattern?</h3>
+  <p><strong>Answer:</strong> Creates new objects by copying an existing object, reducing the cost of creating new instances.</p>
+  <pre><code>public class Prototype
+{
+    public int Id { get; set; }
+    public Prototype Clone() => (Prototype)this.MemberwiseClone();
+}
+</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>4. What is the Factory Pattern?</h3>
+  <p><strong>Answer:</strong> Provides an interface for creating objects but allows subclasses to alter the type of objects that will be created.</p>
+  <pre><code>public interface IShape { void Draw(); }
+
+public class Circle : IShape { public void Draw() => Console.WriteLine("Circle"); }
+public class Square : IShape { public void Draw() => Console.WriteLine("Square"); }
+
+public class ShapeFactory
+{
+    public static IShape GetShape(string type) =>
+        type == "Circle" ? new Circle() : new Square();
+}
+</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>5. What is the Adapter Pattern?</h3>
+  <p><strong>Answer:</strong> Allows incompatible interfaces to work together by converting the interface of a class into another interface the client expects.</p>
+  <pre><code>public interface ITarget { void Request(); }
+
+public class Adaptee { public void SpecificRequest() => Console.WriteLine("Adaptee request"); }
+
+public class Adapter : ITarget
+{
+    private readonly Adaptee _adaptee = new Adaptee();
+    public void Request() => _adaptee.SpecificRequest();
+}
+</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>6. What is the Facade Pattern?</h3>
+  <p><strong>Answer:</strong> Provides a simplified interface to a complex subsystem.</p>
+  <pre><code>public class SubSystemA { public void OperationA() => Console.WriteLine("A"); }
+public class SubSystemB { public void OperationB() => Console.WriteLine("B"); }
+
+public class Facade
+{
+    private SubSystemA a = new SubSystemA();
+    private SubSystemB b = new SubSystemB();
+    public void Operation() { a.OperationA(); b.OperationB(); }
+}
+</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>7. What is the Decorator Pattern?</h3>
+  <p><strong>Answer:</strong> Adds behavior to objects dynamically without modifying their structure.</p>
+  <pre><code>public interface IMessage { void Send(); }
+
+public class EmailMessage : IMessage
+{
+    public void Send() => Console.WriteLine("Sending Email");
+}
+
+public class MessageDecorator : IMessage
+{
+    private readonly IMessage _message;
+    public MessageDecorator(IMessage message) => _message = message;
+    public void Send() { Console.WriteLine("Logging..."); _message.Send(); }
+}
+</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>8. What is the Repository Pattern?</h3>
+  <p><strong>Answer:</strong> Separates the data access logic from the business logic by providing a collection-like interface for accessing domain objects.</p>
+  <pre><code>public interface IProductRepository
+{
+    IEnumerable<Product> GetAll();
+}
+
+public class ProductRepository : IProductRepository
+{
+    private readonly AppDbContext _context;
+    public ProductRepository(AppDbContext context) => _context = context;
+    public IEnumerable<Product> GetAll() => _context.Products.ToList();
+}
+</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>9. What is the CQRS Pattern?</h3>
+  <p><strong>Answer:</strong> Command Query Responsibility Segregation separates read and write operations for better scalability and maintainability.</p>
+  <pre><code>// Command
+public class CreateOrderCommand { public int OrderId { get; set; } }
+// Query
+public class GetOrderQuery { public int OrderId { get; set; } }
+// Handlers would process commands and queries separately.
+</code></pre>
+</div>
+
+
+<h1>🔹 SQL Server Skills - Interview Q&A</h1>
+
+<div class="qa-block">
+  <h3>1. What is a Table in SQL Server?</h3>
+  <p><strong>Answer:</strong> A table is a database object used to store structured data in rows and columns.</p>
+  <pre><code>CREATE TABLE Employees
+(
+    EmployeeID INT PRIMARY KEY,
+    Name NVARCHAR(50),
+    Department NVARCHAR(50),
+    Salary DECIMAL(10,2)
+);</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>2. What is a View and when would you use it?</h3>
+  <p><strong>Answer:</strong> A view is a virtual table that presents data from one or more tables. Use it to simplify complex queries or restrict access.</p>
+  <pre><code>CREATE VIEW EmployeeView AS
+SELECT Name, Department, Salary
+FROM Employees
+WHERE Salary &gt; 50000;</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>3. What are Functions in SQL Server?</h3>
+  <p><strong>Answer:</strong> Functions are reusable routines that return a single value (scalar) or table (table-valued). Useful for calculations or transforming data.</p>
+  <pre><code>-- Scalar Function
+CREATE FUNCTION dbo.GetAnnualSalary(@MonthlySalary DECIMAL)
+RETURNS DECIMAL
+AS
+BEGIN
+    RETURN @MonthlySalary * 12
+END;</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>4. What are Stored Procedures and why are they used?</h3>
+  <p><strong>Answer:</strong> Stored Procedures are precompiled SQL statements that can perform operations like CRUD, complex queries, and transaction management. They improve performance and security.</p>
+  <pre><code>CREATE PROCEDURE GetEmployeesByDepartment
+    @Dept NVARCHAR(50)
+AS
+BEGIN
+    SELECT * FROM Employees
+    WHERE Department = @Dept
+END;</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>5. What is a Trigger and when would you use it?</h3>
+  <p><strong>Answer:</strong> A trigger is a special stored procedure that automatically executes in response to certain events on a table (INSERT, UPDATE, DELETE).</p>
+  <pre><code>CREATE TRIGGER trgAfterInsertEmployee
+ON Employees
+AFTER INSERT
+AS
+BEGIN
+    PRINT 'A new employee record has been added.'
+END;</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>6. Difference between Stored Procedure and Function?</h3>
+  <ul>
+    <li><strong>Stored Procedure</strong> → Can perform insert/update/delete, can return multiple result sets, cannot be used in SELECT directly.</li>
+    <li><strong>Function</strong> → Returns a single value or table, cannot perform modifications on data, can be used in SELECT queries.</li>
+  </ul>
+</div>
+
+<div class="qa-block">
+  <h3>7. What are the benefits of using Views?</h3>
+  <ul>
+    <li>Simplify complex queries for users.</li>
+    <li>Provide a level of security by exposing only specific columns.</li>
+    <li>Make queries reusable.</li>
+  </ul>
+</div>
+
+<div class="qa-block">
+  <h3>8. How do you handle errors in Stored Procedures?</h3>
+  <pre><code>CREATE PROCEDURE SampleProcedure
+AS
+BEGIN
+    BEGIN TRY
+        -- Your SQL code here
+    END TRY
+    BEGIN CATCH
+        PRINT 'Error occurred: ' + ERROR_MESSAGE();
+    END CATCH
+END;</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>9. Can Triggers cause performance issues?</h3>
+  <p><strong>Answer:</strong> Yes ✅ Triggers execute automatically, so poorly written triggers on large tables or frequent operations can slow down performance. Always test and optimize triggers.</p>
+</div>
+
+<div class="qa-block">
+  <h3>10. Best practices for writing Stored Procedures and Functions?</h3>
+  <ul>
+    <li>Keep logic simple and modular.</li>
+    <li>Use parameters to avoid SQL injection.</li>
+    <li>Handle errors with TRY-CATCH blocks.</li>
+    <li>Use SET NOCOUNT ON to reduce unnecessary network traffic.</li>
+    <li>Comment your code for clarity.</li>
+  </ul>
+</div>
+
+
+<h1>🔹 Test-Driven Development (TDD) & Unit Testing in .NET</h1>
+
+<div class="qa-block">
+  <h3>1. What is Test-Driven Development (TDD)?</h3>
+  <p><strong>Answer:</strong> TDD is a software development approach where you write tests before writing the actual code. The workflow is usually: <strong>Red → Green → Refactor</strong>.</p>
+  <ul>
+    <li><strong>Red:</strong> Write a failing test.</li>
+    <li><strong>Green:</strong> Write code to make the test pass.</li>
+    <li><strong>Refactor:</strong> Clean the code while keeping tests passing.</li>
+  </ul>
+</div>
+
+<div class="qa-block">
+  <h3>2. What is xUnit?</h3>
+  <p><strong>Answer:</strong> xUnit is a popular unit testing framework for .NET. It allows you to write and run automated tests for your code.</p>
+  <pre><code>using Xunit;
+
+public class CalculatorTests
+{
+    [Fact]
+    public void Add_ReturnsSum()
+    {
+        var calc = new Calculator();
+        int result = calc.Add(2, 3);
+        Assert.Equal(5, result);
+    }
+}</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>3. What is Moq?</h3>
+  <p><strong>Answer:</strong> Moq is a mocking framework for .NET. It allows you to create mock objects and simulate dependencies in unit tests.</p>
+  <pre><code>using Moq;
+using Xunit;
+
+public class OrderServiceTests
+{
+    [Fact]
+    public void PlaceOrder_CallsRepository()
+    {
+        var mockRepo = new Mock<IOrderRepository>();
+        var service = new OrderService(mockRepo.Object);
+
+        service.PlaceOrder(new Order());
+
+        mockRepo.Verify(r => r.Save(It.IsAny<Order>()), Times.Once);
+    }
+}</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>4. What is Jasmine?</h3>
+  <p><strong>Answer:</strong> Jasmine is a JavaScript testing framework for unit tests, commonly used for front-end testing (Angular, React).</p>
+  <pre><code>describe('Calculator', () =&gt; {
+  it('should add two numbers', () =&gt; {
+    const calc = new Calculator();
+    expect(calc.add(2, 3)).toBe(5);
+  });
+});</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>5. Benefits of Test-Driven Development?</h3>
+  <ul>
+    <li>Ensures code correctness and reduces bugs.</li>
+    <li>Improves code design and maintainability.</li>
+    <li>Makes refactoring safer.</li>
+    <li>Provides automated documentation of functionality.</li>
+  </ul>
+</div>
+
+<div class="qa-block">
+  <h3>6. Best practices for unit testing in .NET?</h3>
+  <ul>
+    <li>Write tests for a single behavior per test.</li>
+    <li>Use descriptive names for test methods.</li>
+    <li>Mock external dependencies to isolate the unit.</li>
+    <li>Run tests frequently and automate with CI/CD.</li>
+    <li>Keep tests fast and repeatable.</li>
+  </ul>
+</div>
+
+<div class="qa-block">
+  <h3>7. Difference between Unit Test, Integration Test, and Functional Test?</h3>
+  <ul>
+    <li><strong>Unit Test:</strong> Tests a single class or method in isolation.</li>
+    <li><strong>Integration Test:</strong> Tests how multiple components work together.</li>
+    <li><strong>Functional Test:</strong> Tests the system from the user's perspective, usually end-to-end.</li>
+  </ul>
+</div>
+
+<h1>🔹 SDLC, Agile SCRUM & Azure DevOps CI/CD</h1>
+
+<div class="qa-block">
+  <h3>1. What is SDLC?</h3>
+  <p><strong>Answer:</strong> SDLC (Software Development Life Cycle) is a systematic process for planning, creating, testing, and deploying software. It ensures quality and efficiency at each phase.</p>
+  <ul>
+    <li>Planning</li>
+    <li>Requirements Analysis</li>
+    <li>Design</li>
+    <li>Development</li>
+    <li>Testing</li>
+    <li>Deployment</li>
+    <li>Maintenance</li>
+  </ul>
+</div>
+
+<div class="qa-block">
+  <h3>2. What is Agile SCRUM methodology?</h3>
+  <p><strong>Answer:</strong> Agile SCRUM is an iterative and incremental methodology for managing software projects. Work is divided into sprints, usually 2-4 weeks long, with continuous delivery of working software.</p>
+  <ul>
+    <li>Roles: Product Owner, Scrum Master, Development Team</li>
+    <li>Artifacts: Product Backlog, Sprint Backlog, Increment</li>
+    <li>Events: Sprint Planning, Daily Standup, Sprint Review, Sprint Retrospective</li>
+  </ul>
+</div>
+
+<div class="qa-block">
+  <h3>3. How do you manage projects end-to-end?</h3>
+  <p><strong>Answer:</strong> By following SDLC phases and Agile SCRUM practices:</p>
+  <ul>
+    <li>Plan: Gather requirements and define scope.</li>
+    <li>Design: Create architecture, wireframes, and database models.</li>
+    <li>Develop: Write code, implement features, perform unit testing.</li>
+    <li>Test: Execute integration, functional, and regression testing.</li>
+    <li>Deploy: Release to production using CI/CD pipelines.</li>
+    <li>Maintain: Monitor, fix bugs, and implement enhancements.</li>
+  </ul>
+</div>
+
+<div class="qa-block">
+  <h3>4. What is Azure DevOps?</h3>
+  <p><strong>Answer:</strong> Azure DevOps is a Microsoft platform for managing the complete software lifecycle. It provides tools for version control, CI/CD, project management, and testing.</p>
+  <ul>
+    <li>Azure Repos – Git repositories for source control</li>
+    <li>Azure Pipelines – Build and release automation (CI/CD)</li>
+    <li>Azure Boards – Agile project management</li>
+    <li>Azure Test Plans – Test management</li>
+    <li>Azure Artifacts – Package management</li>
+  </ul>
+</div>
+
+<div class="qa-block">
+  <h3>5. What is CI/CD in Azure DevOps?</h3>
+  <p><strong>Answer:</strong> CI/CD automates build, testing, and deployment, enabling faster and more reliable software delivery.</p>
+  <ul>
+    <li><strong>Continuous Integration (CI):</strong> Automatically build and test code whenever changes are committed.</li>
+    <li><strong>Continuous Deployment (CD):</strong> Automatically deploy code to staging/production after successful CI.</li>
+  </ul>
+</div>
+
+<div class="qa-block">
+  <h3>6. How do you implement CI/CD pipelines?</h3>
+  <pre><code># Azure DevOps YAML Pipeline Example
+trigger:
+  - main
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '8.x'
+    
+- script: dotnet build --configuration Release
+  displayName: 'Build Project'
+
+- script: dotnet test --configuration Release
+  displayName: 'Run Unit Tests'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'YourAzureSubscription'
+    appName: 'YourAppName'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'</code></pre>
+</div>
+
+<div class="qa-block">
+  <h3>7. Benefits of using Agile SCRUM with Azure DevOps CI/CD?</h3>
+  <ul>
+    <li>Faster delivery of features in short iterations.</li>
+    <li>Better collaboration and transparency across teams.</li>
+    <li>Automated testing and deployment reduce errors.</li>
+    <li>Continuous feedback ensures product meets user needs.</li>
+    <li>Track progress effectively using dashboards and boards.</li>
+  </ul>
+</div>
+
+
+<h1>🔹 Functional Domain Knowledge</h1>
+
+<div class="qa-block">
+  <h3>1. What is Human Capital Management (HCM)?</h3>
+  <p><strong>Answer:</strong> HCM involves managing an organization's workforce to maximize employee performance, engagement, and productivity.</p>
+  <ul>
+    <li>Key areas: Recruitment, Onboarding, Payroll, Performance Management, Learning & Development</li>
+    <li>Tools & Platforms: SAP SuccessFactors, Workday, Oracle HCM Cloud</li>
+    <li>Importance: Aligns employee goals with organizational strategy, ensures compliance, and improves retention.</li>
+  </ul>
+</div>
+
+<div class="qa-block">
+  <h3>2. What is Insurance Domain Knowledge?</h3>
+  <p><strong>Answer:</strong> Knowledge of insurance involves understanding insurance products, policies, claims, underwriting, and regulatory requirements.</p>
+  <ul>
+    <li>Types of Insurance: Life, Health, Property & Casualty, Auto</li>
+    <li>Key Concepts: Policy, Premium, Claim, Risk Assessment, Actuarial Calculations</li>
+    <li>Tools & Platforms: Guidewire, Duck Creek, SAP IS-U, Salesforce for Insurance</li>
+  </ul>
+</div>
+
+<div class="qa-block">
+  <h3>3. What is E-Commerce Domain Knowledge?</h3>
+  <p><strong>Answer:</strong> Knowledge of E-Commerce involves understanding online retail operations, digital sales, customer experience, and supply chain management.</p>
+  <ul>
+    <li>Key Areas: Product Catalog Management, Order Management, Payment Gateway, Inventory & Logistics, Customer Support</li>
+    <li>Platforms & Tools: Shopify, Magento, WooCommerce, Salesforce Commerce Cloud</li>
+    <li>Importance: Enhances online customer experience, increases sales, and optimizes operations.</li>
+  </ul>
+</div>
+
+<div class="qa-block">
+  <h3>4. How does functional domain knowledge help in IT projects?</h3>
+  <p><strong>Answer:</strong> Understanding the domain allows developers, analysts, and managers to:</p>
+  <ul>
+    <li>Translate business requirements into technical solutions.</li>
+    <li>Identify potential risks and compliance issues.</li>
+    <li>Design user-friendly systems aligned with business processes.</li>
+    <li>Provide better support and training to end-users.</li>
+  </ul>
+</div>
+
+</body>
+</html>
