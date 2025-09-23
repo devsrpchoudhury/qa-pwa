@@ -160,6 +160,20 @@
     if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js');
     }
+     const sidebar = document.getElementById('sidebar');
+      const content = document.getElementById('content');
+      const toggleBtn = document.querySelector('.menu-toggle');
+
+      toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('show');
+      });
+
+      // Close sidebar after clicking a link (mobile)
+      document.querySelectorAll('.sidebar a').forEach(link => {
+        link.addEventListener('click', () => {
+          sidebar.classList.remove('show');
+        });
+      });
 </script>
   <body>
     <!-- Sidebar toggle button -->
@@ -1730,21 +1744,5 @@ steps:
 
       </div>
     </div>
-    <script>
-      const sidebar = document.getElementById('sidebar');
-      const content = document.getElementById('content');
-      const toggleBtn = document.querySelector('.menu-toggle');
-
-      toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('show');
-      });
-
-      // Close sidebar after clicking a link (mobile)
-      document.querySelectorAll('.sidebar a').forEach(link => {
-        link.addEventListener('click', () => {
-          sidebar.classList.remove('show');
-        });
-      });
-    </script>
   </body>
 </html>
