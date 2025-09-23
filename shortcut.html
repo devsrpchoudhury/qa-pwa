@@ -127,14 +127,14 @@
     /* Toggle button */
     .menu-toggle {
       position: fixed;
-      top: 15px;
+      top: 10px;
       left: 15px;
       font-size: 24px;
       cursor: pointer;
       background: #4A90E2;
       color: #fff;
       border-radius: 6px;
-      padding: 6px 10px;
+      padding: 1px 10px;
       z-index: 1100;
       display: none; /* hidden on desktop */
     }
@@ -156,25 +156,7 @@
     }
     </style>
   </head>
-  <script>
-    if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js');
-    }
-     const sidebar = document.getElementById('sidebar');
-      const content = document.getElementById('content');
-      const toggleBtn = document.querySelector('.menu-toggle');
-
-      toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('show');
-      });
-
-      // Close sidebar after clicking a link (mobile)
-      document.querySelectorAll('.sidebar a').forEach(link => {
-        link.addEventListener('click', () => {
-          sidebar.classList.remove('show');
-        });
-      });
-</script>
+  
   <body>
     <!-- Sidebar toggle button -->
     <div class="menu-toggle">☰</div>
@@ -1745,4 +1727,26 @@ steps:
       </div>
     </div>
   </body>
+  <script>
+    if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js');
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+  const sidebar = document.getElementById('sidebar');
+  const toggleBtn = document.querySelector('.menu-toggle');
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('show');
+    });
+  }
+
+  document.querySelectorAll('.sidebar a').forEach(link => {
+    link.addEventListener('click', () => {
+      sidebar.classList.remove('show');
+    });
+  });
+});
+
+</script>
 </html>

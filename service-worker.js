@@ -1,10 +1,10 @@
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open('qa-cache').then(cache => cache.addAll([
-      '/shortcut.html',
-      '/manifest.json',
-      '/icons/icon-192.png',
-      '/icons/icon-512.png'
+      './shortcut.html',          // use relative paths
+      './manifest.json',
+      './icons/icon-192.png',
+      './icons/icon-512.png'
     ]))
   );
 });
