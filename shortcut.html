@@ -175,6 +175,20 @@
       <a href="#(TDD)&UnitTesting">(TDD) & Unit Testing</a>
       <a href="#agile">SDLC, Agile SCRUM & Azure DevOps CI/CD</a>
       <a href="#FunctionalDomainKnowledge">Functional Domain Knowledge</a>
+      <a href="#csharpInterview">C# Interview Q&A</a>
+      <a href="#dotnetInterview">.NET Core Interview Q&A</a>
+      <a href="#dotnetCoreInterview">.NET Core Interview Q&A</a>
+      <a href="#linqInterview">LINQ Interview Q&A</a>
+      <a href="#projectQuestions">Project Q&A</a>
+      <a href="#techProfessionalInterview">Tech & Professional Interview Q&A</a>
+      <a href="#sessionAuthentication">Session & Authentication Interview Q&A</a>
+
+
+
+
+
+
+
     </div>
     <div class="content full" id="content">
       <div id="azure">
@@ -266,7 +280,7 @@
           Use Azure.Storage.Blobs NuGet package.<br>
           Example:<br>
           <pre><code>var blobClient = new BlobClient(connStr, "mycontainer", "file.txt");
-await blobClient.UploadAsync(stream);</code></pre></p>
+        await blobClient.UploadAsync(stream);</code></pre></p>
 
         <p><strong>19. How do you integrate Azure Service Bus with .NET
             Core?</strong><br>
@@ -277,7 +291,7 @@ await blobClient.UploadAsync(stream);</code></pre></p>
             Core?</strong><br>
           Install StackExchange.Redis.<br>
           <pre><code>var cache = ConnectionMultiplexer.Connect(connStr).GetDatabase();
-cache.StringSet("key", "value");</code></pre></p>
+          cache.StringSet("key", "value");</code></pre></p>
 
         <h1>🔹 Scenario-Based Q&A</h1>
         <p><strong>21. Your .NET Core API in Azure App Service is slow. How do
@@ -571,7 +585,7 @@ app.UseAuthorization();</code></pre></p>
 
       </div>
       <div id="caching">
-        <h2>🔹 Caching in .NET Core – Interview Q&A</h2>
+        <h1>🔹 Caching in .NET Core – Interview Q&A</h1>
 
         <div class="qa-block">
           <h3>1. What is caching in .NET Core?</h3>
@@ -1725,6 +1739,722 @@ steps:
         </div>
 
       </div>
+      <div id="csharpInterview">
+  <h1>🔹 C# Interview Q&A </h1>
+
+  <p><strong>1. What are Value Types and Reference Types in C#?</strong><br>
+    ✔ Value Types → Stored in <code>Stack</code>, contain actual data (e.g., int, bool, struct).<br>
+    ✔ Reference Types → Stored in <code>Heap</code>, variable holds reference to data (e.g., class, object, string).<br>
+    Example:<br>
+    <pre><code>int x = 10;       // Value type
+string s = "Hi";  // Reference type</code></pre></p>
+
+  <p><strong>2. What is the difference between == and Equals() in C#?</strong><br>
+    ✔ <code>==</code> → Compares values for value types, compares references for objects (unless overloaded).<br>
+    ✔ <code>equals()</code> → Can be overridden to check logical equality.<br>
+    Example:<br>
+    <pre><code>string a = "hello"; 
+string b = new string("hello".ToCharArray());
+Console.WriteLine(a == b);     // true
+Console.WriteLine(a.Equals(b));// true</code></pre></p>
+
+  <p><strong>3. What is Boxing and Unboxing?</strong><br>
+    ✔ Boxing → Converting a <code>value type</code> into <code>object</code> type.<br>
+    ✔ Unboxing → Extracting the value type from object.<br>
+    Example:<br>
+    <pre><code>int x = 10;
+object obj = x;         // Boxing
+int y = (int)obj;       // Unboxing</code></pre></p>
+
+  <p><strong>4. What are Access Modifiers in C#?</strong><br>
+    🔹 <code>public</code> → Accessible everywhere.<br>
+    🔹 <code>private</code> → Only within the class.<br>
+    🔹 <code>protected</code> → Class + derived classes.<br>
+    🔹 <code>internal</code> → Same assembly.<br>
+    🔹 <code>protected internal</code> → Combination of protected + internal.</p>
+
+  <p><strong>5. What is the difference between Abstract Class and Interface?</strong><br>
+    ✔ Abstract Class → Can have implementation + abstract methods.<br>
+    ✔ Interface → Only method/property signatures (until C# 8 where default methods are allowed).<br>
+    Example:<br>
+    <pre><code>public interface IAnimal { void Speak(); }
+public abstract class Animal { public abstract void Speak(); }</code></pre></p>
+
+  <p><strong>6. Explain Static vs Instance members in C#.</strong><br>
+    ✔ Static → Belongs to the type, not object. Only one copy exists.<br>
+    ✔ Instance → Belongs to individual objects.<br>
+    Example:<br>
+    <pre><code>public class Counter {
+   public static int Count = 0;
+   public Counter() { Count++; }
+}</code></pre></p>
+
+  <p><strong>7. What is the difference between const, readonly, and static?</strong><br>
+    ✔ <code>const</code> → Compile-time constant, must be assigned at declaration.<br>
+    ✔ <code>readonly</code> → Assigned at runtime (in constructor).<br>
+    ✔ <code>static</code> → Belongs to type, not instance.</p>
+
+  <p><strong>8. What are Generics in C#?</strong><br>
+    Generics allow type-safe data structures without boxing/unboxing.<br>
+    Example:<br>
+    <pre><code>List&lt;int&gt; numbers = new List&lt;int&gt; {1, 2, 3};</code></pre></p>
+
+  <p><strong>9. Explain the difference between IEnumerable, ICollection, and IList.</strong><br>
+    ✔ <code>IEnumerable</code> → Forward-only iteration.<br>
+    ✔ <code>ICollection</code> → Supports add/remove/count.<br>
+    ✔ <code>IList</code> → Indexed access + insertion.<br>
+    Example:<br>
+    <pre><code>IEnumerable&lt;int&gt; list = new List&lt;int&gt;();</code></pre></p>
+
+  <p><strong>10. What is the difference between Task and Thread?</strong><br>
+    ✔ Thread → Low-level OS managed execution.<br>
+    ✔ Task → High-level abstraction for async operations (built on ThreadPool).<br>
+    Example:<br>
+    <pre><code>await Task.Run(() =&gt; Console.WriteLine("Running async"));</code></pre></p>
+
+  <p><strong>11. Explain async and await in C#.</strong><br>
+    ✔ Used for asynchronous programming, prevents blocking main thread.<br>
+    Example:<br>
+    <pre><code>public async Task&lt;string&gt; GetDataAsync()
+{
+    await Task.Delay(2000); // Simulate delay
+    return "Done!";
+}</code></pre></p>
+
+  <p><strong>12. What is the difference between String and StringBuilder?</strong><br>
+    ✔ String → Immutable (every modification creates new object).<br>
+    ✔ StringBuilder → Mutable, efficient for frequent changes.<br>
+    Example:<br>
+    <pre><code>StringBuilder sb = new StringBuilder("Hi");
+sb.Append(" there");</code></pre></p>
+
+  <p><strong>13. What are Extension Methods in C#?</strong><br>
+    ✔ Allow adding new methods to existing types without modifying them.<br>
+    Example:<br>
+    <pre><code>public static class Extensions {
+   public static bool IsEven(this int number) =&gt; number % 2 == 0;
+}</code></pre></p>
+
+  <p><strong>14. What is the difference between IEnumerable and IQueryable?</strong><br>
+    ✔ IEnumerable → Executes in-memory, LINQ-to-Objects.<br>
+    ✔ IQueryable → Executes at database level, deferred execution.<br>
+    Example:<br>
+    <pre><code>var data = db.Users.Where(u =&gt; u.Age &gt; 20);</code></pre></p>
+
+  <p><strong>15. What is Exception Handling in C#?</strong><br>
+    ✔ Handled using try-catch-finally.<br>
+    Example:<br>
+    <pre><code>try { int x = 5/0; }
+catch(Exception ex) { Console.WriteLine(ex.Message); }</code></pre></p>
+      </div>
+      <div id="dotnetInterview">
+        
+  <h1>🔹 C# / .NET Core – Interview Q&A </h1>
+
+  <p><strong>1. What are the differences between .NET Framework and .NET Core?</strong><br>
+    ✔ .NET Framework → Windows-only, older, monolithic.<br>
+    ✔ .NET Core → Cross-platform (Windows, Linux, macOS), open-source, lightweight, and high performance.<br>
+    ✔ Now unified into <code>.NET 5+</code>.</p>
+
+  <p><strong>2. What is the difference between Value Types and Reference Types?</strong><br>
+    🔹 Value Types → Stored in Stack (e.g., int, struct, bool).<br>
+    🔹 Reference Types → Stored in Heap, variable holds reference (e.g., class, object, string).<br>
+    Example:<br>
+    <pre><code>int x = 10;   // Value type
+string y = "Hello";  // Reference type</code></pre></p>
+
+  <p><strong>3. What is Garbage Collection in .NET?</strong><br>
+    Automatic memory management that frees unused objects in Heap.<br>
+    ✔ Runs in background.<br>
+    ✔ Divides memory into Generations (0,1,2).<br>
+    ✔ Improves performance by compacting memory.</p>
+
+  <p><strong>4. What are Access Modifiers in C#?</strong><br>
+    🔹 <code>public</code> → Accessible everywhere.<br>
+    🔹 <code>private</code> → Only within the class.<br>
+    🔹 <code>protected</code> → Class + derived classes.<br>
+    🔹 <code>internal</code> → Same assembly.<br>
+    🔹 <code>protected internal</code> → Combination of protected + internal.</p>
+
+  <p><strong>5. What is the difference between Abstract Class and Interface?</strong><br>
+    ✔ Abstract class → Can have fields, constructors, and implemented methods.<br>
+    ✔ Interface → Only method/property signatures (C# 8 allows default methods).<br>
+    Example:<br>
+    <pre><code>public interface IAnimal { void Speak(); }
+public abstract class Animal { public abstract void Speak(); }</code></pre></p>
+
+  <p><strong>6. What is the difference between Task and Thread?</strong><br>
+    ✔ Thread → Low-level unit of execution, managed manually.<br>
+    ✔ Task → High-level abstraction built on threads, easier async programming.<br>
+    Example:<br>
+    <pre><code>await Task.Run(() =&gt; Console.WriteLine("Running async"));</code></pre></p>
+
+  <p><strong>7. Explain async and await in C#.</strong><br>
+    Used for asynchronous programming to avoid blocking the main thread.<br>
+    Example:<br>
+    <pre><code>public async Task&lt;string&gt; GetDataAsync()
+{
+    await Task.Delay(2000); // Simulate API call
+    return "Data received";
+}</code></pre></p>
+
+  <p><strong>8. What is Entity Framework Core?</strong><br>
+    ✔ ORM (Object Relational Mapper).<br>
+    ✔ Maps C# classes to DB tables.<br>
+    ✔ Supports LINQ for queries.<br>
+    Example:<br>
+    <pre><code>var users = await _dbContext.Users.ToListAsync();</code></pre></p>
+
+  <p><strong>9. What is Middleware in ASP.NET Core?</strong><br>
+    Middleware are components in the HTTP request pipeline.<br>
+    Example order: Authentication → Routing → Controller → Response.<br>
+    Example:<br>
+    <pre><code>app.Use(async (context, next) =&gt; {
+    Console.WriteLine("Request incoming");
+    await next();
+});</code></pre></p>
+
+  <p><strong>10. Explain Difference Between AddSingleton, AddScoped, and AddTransient.</strong><br>
+    ✔ Singleton → One instance for the entire app.<br>
+    ✔ Scoped → One instance per HTTP request.<br>
+    ✔ Transient → New instance each time.<br>
+    Example:<br>
+    <pre><code>builder.Services.AddScoped&lt;IUserService, UserService&gt;();</code></pre></p>
+
+  <p><strong>11. What are Controllers and Action Methods in ASP.NET Core?</strong><br>
+    ✔ Controller → Handles requests and returns responses.<br>
+    ✔ Action → A method inside a controller.<br>
+    Example:<br>
+    <pre><code>public class HomeController : Controller {
+   public IActionResult Index() =&gt; View();
+}</code></pre></p>
+
+  <p><strong>12. What is Model Binding in ASP.NET Core?</strong><br>
+    Converts HTTP request data into C# objects automatically.<br>
+    Example:<br>
+    <pre><code>public IActionResult Save(User user) { ... }</code></pre>
+    If form has input <code>name="UserName"</code>, it will bind to <code>user.UserName</code>.</p>
+
+  <p><strong>13. Difference between SQL Joins (Inner, Left, Right, Full)?</strong><br>
+    ✔ INNER JOIN → Common records in both tables.<br>
+    ✔ LEFT JOIN → All records from left + matching from right.<br>
+    ✔ RIGHT JOIN → All records from right + matching from left.<br>
+    ✔ FULL JOIN → All records from both tables.</p>
+
+  <p><strong>14. What is LINQ?</strong><br>
+    Language Integrated Query → Used to query collections/DB in C#.<br>
+    Example:<br>
+    <pre><code>var result = users.Where(u =&gt; u.Age &gt; 25).ToList();</code></pre></p>
+
+  <p><strong>15. How to handle exceptions in .NET?</strong><br>
+    Using try-catch-finally or global exception middleware.<br>
+    Example:<br>
+    <pre><code>try { ... } 
+catch(Exception ex) { Console.WriteLine(ex.Message); }</code></pre></p>
+      </div>
+      <div id="dotnetCoreInterview">
+        <h1>🔹 ASP.NET Core / .NET Core Interview Q&A</h1>
+
+        <p><strong>1. What is .NET Core?</strong><br>
+          ✔ .NET Core is an open-source, cross-platform framework by Microsoft.<br>
+          ✔ Supports building apps on Windows, Linux, macOS.<br>
+          ✔ Unified platform → APIs, CLI, runtime.<br>
+          ✔ Successor to .NET Framework.</p>
+
+        <p><strong>2. What is the difference between .NET Framework and .NET Core?</strong><br>
+          🔹 .NET Framework → Windows-only, closed source.<br>
+          🔹 .NET Core → Cross-platform, open source, lightweight.<br>
+          🔹 .NET 5+ → Unified platform (no more "Core" vs "Framework").</p>
+
+        <p><strong>3. What is Middleware in ASP.NET Core?</strong><br>
+          ✔ Middleware are components in the request pipeline that handle HTTP requests/responses.<br>
+          Example:<br>
+          <pre><code>app.Use(async (context, next) =&gt; {
+              Console.WriteLine("Before");
+              await next();
+              Console.WriteLine("After");
+          });</code></pre></p>
+
+        <p><strong>4. What is the Startup.cs / Program.cs file?</strong><br>
+          ✔ In .NET 6+, <code>Program.cs</code> configures services and middleware.<br>
+          ✔ It replaces Startup.cs (used in older versions).<br>
+          Example:<br>
+          <pre><code>var builder = WebApplication.CreateBuilder(args);
+      builder.Services.AddControllers();
+      var app = builder.Build();
+      app.UseAuthorization();
+      app.MapControllers();
+      app.Run();</code></pre></p>
+
+        <p><strong>5. What is Dependency Injection in .NET Core?</strong><br>
+          ✔ Built-in IoC container for injecting dependencies.<br>
+          ✔ Supports lifetimes → Singleton, Scoped, Transient.<br>
+          Example:<br>
+          <pre><code>builder.Services.AddScoped&lt;IUserService, UserService&gt;();</code></pre></p>
+
+        <p><strong>6. Explain the different DI lifetimes.</strong><br>
+          🔹 Transient → New instance every time.<br>
+          🔹 Scoped → One instance per request.<br>
+          🔹 Singleton → One instance for entire app lifetime.</p>
+
+        <p><strong>7. What are Controllers in ASP.NET Core?</strong><br>
+          ✔ Controllers handle HTTP requests and return responses.<br>
+          Example:<br>
+          <pre><code>[ApiController]
+      [Route("api/[controller]")]
+      public class OrderController : ControllerBase {
+          [HttpGet]
+          public IEnumerable&lt;Order&gt; GetOrders() =&gt; _service.GetAll();
+      }</code></pre></p>
+
+        <p><strong>8. What are Filters in ASP.NET Core?</strong><br>
+          ✔ Filters allow running code before/after controller actions.<br>
+          Types: Authorization, Resource, Action, Exception, Result.<br>
+          Example:<br>
+          <pre><code>public class LogActionFilter : IActionFilter {
+        public void OnActionExecuting(ActionExecutingContext context) { }
+        public void OnActionExecuted(ActionExecutedContext context) { }
+      }</code></pre></p>
+
+        <p><strong>9. What is Routing in ASP.NET Core?</strong><br>
+          ✔ Routing maps HTTP requests to endpoints (controllers/actions).<br>
+          ✔ Two types: Convention-based & Attribute routing.<br>
+          Example:<br>
+          <pre><code>[HttpGet("products/{id}")]</code></pre></p>
+
+        <p><strong>10. What is Entity Framework Core (EF Core)?</strong><br>
+          ✔ EF Core is an ORM to work with databases using LINQ.<br>
+          ✔ Supports Migrations, Change Tracking, LINQ queries.<br>
+          Example:<br>
+          <pre><code>var users = await _db.Users.Where(u =&gt; u.IsActive).ToListAsync();</code></pre></p>
+
+        <p><strong>11. How do you configure DbContext in .NET Core?</strong><br>
+          <pre><code>builder.Services.AddDbContext&lt;AppDbContext&gt;(options =&gt;
+          options.UseSqlServer(builder.Configuration.GetConnectionString("Default")) );</code></pre></p>
+
+        <p><strong>12. What is the difference between Kestrel and IIS?</strong><br>
+          ✔ Kestrel → Cross-platform web server (default in ASP.NET Core).<br>
+          ✔ IIS → Windows-only web server (used with reverse proxy).<br>
+          ✔ ASP.NET Core apps usually run on Kestrel behind IIS/Nginx.</p>
+
+        <p><strong>13. What is the difference between ViewData, ViewBag, and TempData?</strong><br>
+          🔹 ViewData → Dictionary (string keys), lasts for one request.<br>
+          🔹 ViewBag → Dynamic wrapper over ViewData.<br>
+          🔹 TempData → Stored in session, persists across requests.</p>
+
+        <p><strong>14. What are Tag Helpers in ASP.NET Core?</strong><br>
+          ✔ Tag Helpers are server-side components to generate HTML.<br>
+          Example:<br>
+          <pre><code>&lt;form asp-action="Login"&gt;
+        &lt;input asp-for="UserName" /&gt;
+      &lt;/form&gt;</code></pre></p>
+
+        <p><strong>15. What is the difference between Synchronous and Asynchronous programming in .NET Core?</strong><br>
+          ✔ Sync → Blocking execution.<br>
+          ✔ Async → Non-blocking, better performance.<br>
+          Example:<br>
+          <pre><code>public async Task&lt;IActionResult&gt; Get() {
+          var data = await _service.GetDataAsync();
+          return Ok(data);
+      }</code></pre></p>
+
+        <p><strong>16. What is the difference between Web API and MVC in ASP.NET Core?</strong><br>
+          🔹 MVC → For full-stack apps (View + Controller).<br>
+          🔹 Web API → For RESTful services (returns JSON/XML, no views).<br>
+          🔹 In ASP.NET Core → Unified (API + MVC in one framework).</p>
+
+        <p><strong>17. How do you secure APIs in ASP.NET Core?</strong><br>
+          ✔ Using Authentication + Authorization (JWT, OAuth2, Azure AD).<br>
+          ✔ Using middleware like <code>[Authorize]</code> attribute.<br>
+          Example:<br>
+          <pre><code>[Authorize]
+      [HttpGet("orders")]</code></pre></p>
+
+        <p><strong>18. What is the difference between IFormFile and FileStream in .NET Core?</strong><br>
+          ✔ <code>IFormFile</code> → Represents uploaded files via HTTP.<br>
+          ✔ <code>FileStream</code> → For working with local file system.</p>
+
+        <p><strong>19. What are Configuration Providers in ASP.NET Core?</strong><br>
+          ✔ App reads settings from multiple sources → appsettings.json, environment variables, user secrets, Azure Key Vault.<br>
+          Example:<br>
+          <pre><code>builder.Configuration.GetSection("ConnectionStrings:Default").Value</code></pre></p>
+
+        <p><strong>20. What is the difference between .NET 6 and .NET 8?</strong><br>
+          ✔ .NET 6 → LTS release, simplified Program.cs.<br>
+          ✔ .NET 8 → Performance improvements, AOT compilation, Blazor updates.<br>
+          ✔ For interview: emphasize performance, cloud-native, and API improvements.</p>
+      </div>
+      <div id="linqInterview">
+  <h1>🔹 LINQ (Language Integrated Query) </h1>
+
+  <p><strong>1. What is LINQ?</strong><br>
+    ✔ LINQ (Language Integrated Query) is a feature in .NET to query data in a
+    consistent way from collections, databases, XML, or other sources.<br>
+    ✔ It provides a declarative style using C# syntax.</p>
+
+  <p><strong>2. Why is LINQ used?</strong><br>
+    ✔ Reduces boilerplate loops for filtering, sorting, and projecting data.<br>
+    ✔ Provides compile-time syntax checking & IntelliSense.<br>
+    ✔ Improves readability and maintainability of code.</p>
+
+  <p><strong>3. What are the different types of LINQ?</strong><br>
+    🔹 LINQ to Objects → Queries collections/arrays.<br>
+    🔹 LINQ to SQL → Queries SQL Server databases.<br>
+    🔹 LINQ to Entities (EF Core) → Queries relational databases via ORM.<br>
+    🔹 LINQ to XML → Queries XML documents.</p>
+
+  <p><strong>4. What are the two syntax styles of LINQ?</strong><br>
+    ✔ Query Syntax (SQL-like)<br>
+    <pre><code>var result = from s in students
+             where s.Age &gt; 18
+             select s;</code></pre>
+    ✔ Method Syntax (Lambda-based)<br>
+    <pre><code>var result = students.Where(s =&gt; s.Age &gt; 18).ToList();</code></pre></p>
+
+  <p><strong>5. What are Deferred Execution and Immediate Execution?</strong><br>
+    ✔ Deferred Execution → Query executes when iterated (e.g., <code>Where</code>, <code>Select</code>).<br>
+    ✔ Immediate Execution → Query executes immediately (e.g., <code>ToList()</code>, <code>Count()</code>, <code>First()</code>).</p>
+
+  <p><strong>6. Difference between IEnumerable and IQueryable?</strong><br>
+    🔹 IEnumerable → Works in-memory (LINQ to Objects). Executes query in C#.<br>
+    🔹 IQueryable → Executes queries on remote sources (DB). Translates to SQL for EF Core.<br>
+    Example:<br>
+    <pre><code>IEnumerable&lt;Student&gt; local = students.Where(s =&gt; s.Age &gt; 18);
+IQueryable&lt;Student&gt; db = dbContext.Students.Where(s =&gt; s.Age &gt; 18);</code></pre></p>
+
+  <p><strong>7. Common LINQ operators?</strong><br>
+    ✔ Filtering → <code>Where()</code><br>
+    ✔ Projection → <code>Select()</code><br>
+    ✔ Sorting → <code>OrderBy()</code>, <code>OrderByDescending()</code><br>
+    ✔ Grouping → <code>GroupBy()</code><br>
+    ✔ Aggregation → <code>Count()</code>, <code>Sum()</code>, <code>Max()</code><br>
+    ✔ Joining → <code>Join()</code>, <code>GroupJoin()</code></p>
+
+  <p><strong>8. Can you give an example of LINQ Join?</strong><br>
+    <pre><code>var result = from o in orders
+             join c in customers on o.CustomerId equals c.Id
+             select new { o.Id, c.Name };</code></pre></p>
+
+  <p><strong>9. What is the difference between First(), FirstOrDefault(), Single(), and SingleOrDefault()?</strong><br>
+    ✔ First() → Returns first element; throws exception if not found.<br>
+    ✔ FirstOrDefault() → Returns first or default (null).<br>
+    ✔ Single() → Expects exactly one element; throws if zero/more than one.<br>
+    ✔ SingleOrDefault() → Returns one or default; throws if more than one.</p>
+
+  <p><strong>10. Explain Select vs SelectMany.</strong><br>
+    ✔ Select → Projects each element into a new form.<br>
+    ✔ SelectMany → Flattens collections.<br>
+    Example:<br>
+    <pre><code>var result = students.Select(s =&gt; s.Courses);      // list of lists
+var flat   = students.SelectMany(s =&gt; s.Courses); // single flat list</code></pre></p>
+
+  <p><strong>11. Difference between ToList(), ToArray(), and AsEnumerable()?</strong><br>
+    ✔ ToList() → Converts query results into a List.<br>
+    ✔ ToArray() → Converts query results into an Array.<br>
+    ✔ AsEnumerable() → Forces LINQ-to-Objects execution, useful to avoid SQL translation.</p>
+
+  <p><strong>12. How do you perform GroupBy in LINQ?</strong><br>
+    <pre><code>var groups = students.GroupBy(s =&gt; s.City)
+    .Select(g =&gt; new { City = g.Key, Count = g.Count() });</code></pre></p>
+
+  <p><strong>13. What is the difference between Any() and All()?</strong><br>
+    ✔ Any() → Checks if any element satisfies condition.<br>
+    ✔ All() → Checks if all elements satisfy condition.<br>
+    Example:<br>
+    <pre><code>students.Any(s =&gt; s.Age &gt; 18); // true if at least one
+students.All(s =&gt; s.Age &gt; 18); // true if all</code></pre></p>
+
+  <p><strong>14. How do you perform Aggregations in LINQ?</strong><br>
+    ✔ Methods: Count(), Sum(), Min(), Max(), Average().<br>
+    Example:<br>
+    <pre><code>var avgAge = students.Average(s =&gt; s.Age);</code></pre></p>
+
+  <p><strong>15. What is the difference between Take() and Skip()?</strong><br>
+    ✔ Take(n) → Gets first n elements.<br>
+    ✔ Skip(n) → Skips first n elements.<br>
+    Example:<br>
+    <pre><code>var page1 = students.Skip(0).Take(10);
+var page2 = students.Skip(10).Take(10);</code></pre></p>
+
+  <p><strong>16. What are extension methods in LINQ?</strong><br>
+    ✔ LINQ is built using extension methods on IEnumerable/IQueryable.<br>
+    Example:<br>
+    <pre><code>public static IEnumerable&lt;T&gt; MyFilter&lt;T&gt;(this IEnumerable&lt;T&gt; source) {
+    foreach (var item in source) yield return item;
+}</code></pre></p>
+
+  <p><strong>17. How do you write a LINQ query with multiple where conditions?</strong><br>
+    <pre><code>var result = students.Where(s =&gt; s.Age &gt; 18 &amp;&amp; s.City == "Delhi");</code></pre></p>
+
+  <p><strong>18. How to handle Null values in LINQ?</strong><br>
+    ✔ Use null-coalescing or conditional operator.<br>
+    <pre><code>var names = students.Select(s =&gt; s.Name ?? "Unknown");</code></pre></p>
+
+  <p><strong>19. What is Expression Tree in LINQ?</strong><br>
+    ✔ IQueryable queries are represented as expression trees, which can be translated into SQL by EF Core.<br>
+    ✔ IEnumerable uses delegates (C# compiled code).</p>
+
+  <p><strong>20. Difference between Concat() and Union()?</strong><br>
+    ✔ Concat() → Combines sequences, allows duplicates.<br>
+    ✔ Union() → Combines sequences, removes duplicates.</p>
+      </div>
+      <div id="projectQuestions">
+  <h1>🔹 Project Related Questions & Answers – .NET Developer</h1>
+
+  <p><strong>1. Tell me about your current project.</strong><br>
+    ✔ My current project is a <em>Shipment Management System</em> built on <b>.NET 8 MVC, Entity Framework Core, SQL Server</b>, and <b>Angular</b> for frontend.<br>
+    ✔ It handles farmer registration, shipment tracking, invoicing, and integrations with carriers like FedEx and DHL.<br>
+    ✔ My role involves developing REST APIs, implementing business logic, and writing optimized LINQ/SQL queries.</p>
+
+  <p><strong>2. What was your role and responsibilities in the project?</strong><br>
+    ✔ Developing and maintaining ASP.NET Core APIs.<br>
+    ✔ Implementing business logic using C# and LINQ.<br>
+    ✔ Writing stored procedures and optimizing queries in SQL Server.<br>
+    ✔ Working on UI features with Angular/Bootstrap.<br>
+    ✔ Handling authentication & authorization with Identity/JWT.<br>
+    ✔ Code review, debugging, and unit testing.</p>
+
+  <p><strong>3. What architecture did you follow?</strong><br>
+    ✔ We followed <b>Clean Architecture</b> with layers:<br>
+    🔹 API Layer → Controllers (Presentation)<br>
+    🔹 Application Layer → DTOs, Interfaces, Business Logic<br>
+    🔹 Infrastructure Layer → EF Core, Repositories, External APIs<br>
+    🔹 Domain Layer → Entities, Core Models<br>
+    ✔ This ensures separation of concerns and testability.</p>
+
+  <p><strong>4. How do you handle database operations?</strong><br>
+    ✔ We use <b>Entity Framework Core</b> with LINQ for most queries.<br>
+    ✔ For performance-heavy operations, we use <b>stored procedures</b> via <code>FromSqlRaw()</code>.<br>
+    ✔ Example:<br>
+    <pre><code>var result = await _context.Orders
+    .Where(o =&gt; o.Status == "Pending")
+    .ToListAsync();</code></pre></p>
+
+  <p><strong>5. Did you use Dependency Injection in your project?</strong><br>
+    ✔ Yes, we registered services in <code>Program.cs</code> using DI lifetimes:<br>
+    <pre><code>builder.Services.AddScoped&lt;IShipmentService, ShipmentService&gt;();</code></pre>
+    ✔ This made our code loosely coupled and testable.</p>
+
+  <p><strong>6. How do you handle authentication & authorization?</strong><br>
+    ✔ We used <b>ASP.NET Core Identity</b> for authentication.<br>
+    ✔ JWT tokens for securing APIs.<br>
+    ✔ Applied role-based authorization using <code>[Authorize(Roles="Admin")]</code>.</p>
+
+  <p><strong>7. How do you handle exceptions in your project?</strong><br>
+    ✔ Local try-catch for business logic.<br>
+    ✔ Global exception middleware for unhandled exceptions.<br>
+    <pre><code>app.UseExceptionHandler("/Home/Error");</code></pre></p>
+
+  <p><strong>8. How do you log errors?</strong><br>
+    ✔ We used <b>Serilog</b> integrated with files and SQL Server.<br>
+    ✔ Also used <b>Application Insights</b> in Azure deployment for monitoring.</p>
+
+  <p><strong>9. How do you ensure performance in your application?</strong><br>
+    ✔ Used caching (In-Memory / Redis) for frequently used data.<br>
+    ✔ Optimized LINQ queries & avoided N+1 issues.<br>
+    ✔ Used async/await to improve scalability.<br>
+    ✔ Applied indexes on SQL tables.</p>
+
+  <p><strong>10. How did you handle deployments?</strong><br>
+    ✔ Used <b>Azure DevOps CI/CD pipelines</b> for automated build and deployment.<br>
+    ✔ API deployed in <b>Azure App Service</b>.<br>
+    ✔ Database migrations handled via EF Core migrations.</p>
+
+  <p><strong>11. Did you integrate with third-party APIs?</strong><br>
+    ✔ Yes, integrated with <b>FedEx/DHL APIs</b> for shipment tracking.<br>
+    ✔ Used <code>HttpClient</code> for making REST calls.<br>
+    ✔ Handled responses with models and error handling.</p>
+
+  <p><strong>12. How do you test your code?</strong><br>
+    ✔ Unit testing using <b>xUnit</b> & <b>Moq</b> for mocking dependencies.<br>
+    ✔ Example:<br>
+    <pre><code>var mockService = new Mock&lt;IShipmentService&gt;();
+mockService.Setup(s =&gt; s.GetOrders()).Returns(orderList);</code></pre></p>
+
+  <p><strong>13. How do you manage configurations?</strong><br>
+    ✔ Used <code>appsettings.json</code> for environment-based settings.<br>
+    ✔ Injected using <code>IOptions&lt;T&gt;</code> pattern.</p>
+
+  <p><strong>14. What challenges did you face and how did you solve them?</strong><br>
+    ✔ <em>Challenge:</em> Slow DB queries.<br>
+    ✔ <em>Solution:</em> Optimized queries, added indexes, and used pagination.<br><br>
+    ✔ <em>Challenge:</em> API timeouts with FedEx.<br>
+    ✔ <em>Solution:</em> Implemented retry policies with Polly and improved exception handling.</p>
+
+  <p><strong>15. How do you work in your team?</strong><br>
+    ✔ We follow <b>Agile Scrum</b> methodology.<br>
+    ✔ Daily standups, sprint planning, code reviews, and Git for version control.</p>
+      </div>
+      <div id="techProfessionalInterview">
+  <h1>🔹 Technical & Professional Experience – Interview Q&A</h1>
+
+  <p><strong>1. What is Authentication (AuthN) and Authorization (AuthZ)?</strong><br>
+    ✔ <b>Authentication</b> → Verifying the identity of a user (who you are).  
+    ✔ <b>Authorization</b> → Checking permissions after authentication (what you can do).  
+    ✔ Example: In a shipment app, login with username/password = Authentication; only Admin can approve shipment = Authorization.</p>
+
+  <p><strong>2. What are the common authentication techniques in .NET?</strong><br>
+    ✔ Windows Authentication → Uses AD credentials for intranet apps.  
+    ✔ Basic Authentication → Username/password sent in header (encoded, not secure alone).  
+    ✔ JWT (JSON Web Token) → Modern token-based auth for APIs, widely used in microservices.<br>
+    Example with JWT in .NET:<br>
+    <pre><code>[Authorize]
+public IActionResult GetOrders() =&gt; Ok("Secured Data");</code></pre></p>
+
+  <p><strong>3. How does JWT Authentication work?</strong><br>
+    ✔ User logs in → server issues JWT signed with secret key.  
+    ✔ Client sends token in <code>Authorization: Bearer &lt;token&gt;</code> header.  
+    ✔ Server validates signature and claims.  
+    ✔ Advantage → Stateless, scalable across services.</p>
+
+  <p><strong>4. What is your experience with GIT?</strong><br>
+    ✔ Used Git for source control, branching, and code reviews.  
+    ✔ Workflow I follow:  
+    🔹 <code>git pull</code> → sync latest code.  
+    🔹 <code>git checkout -b feature/xyz</code> → new branch.  
+    🔹 <code>git commit -m "Implemented feature"</code>.  
+    🔹 <code>git push origin feature/xyz</code>.  
+    🔹 Raise Pull Request → reviewed → merged to main branch.  
+    ✔ Helps in collaboration, version tracking, and rollback.</p>
+
+  <p><strong>5. What is a Pull Request and why is it important?</strong><br>
+    ✔ A Pull Request (PR) is a way to propose changes in Git.  
+    ✔ It allows code review, CI/CD checks, and approval before merging.  
+    ✔ Ensures code quality and avoids breaking main branch.</p>
+
+  <p><strong>6. What methodology do you follow in your projects?</strong><br>
+    ✔ <b>Agile (Scrum)</b> → 2-week sprints, daily standups, backlog grooming.  
+    ✔ Work with Product Owners, BA, QA in iterations.  
+    ✔ Deliver incremental features instead of big releases.</p>
+
+  <p><strong>7. What is Test-Driven Development (TDD)?</strong><br>
+    ✔ TDD is writing tests before writing code.  
+    ✔ Process:  
+    🔹 Write a failing unit test.  
+    🔹 Write minimum code to pass test.  
+    🔹 Refactor and repeat.  
+    ✔ Benefits → Ensures test coverage, fewer bugs, cleaner design.  
+    <pre><code>[Fact]
+public void Add_ShouldReturnSum() {
+    var calc = new Calculator();
+    Assert.Equal(5, calc.Add(2,3));
+}</code></pre></p>
+
+  <p><strong>8. Do you use UML diagrams in your projects?</strong><br>
+    ✔ Yes, for design discussions we use UML (Use case diagrams, Class diagrams, Sequence diagrams).  
+    ✔ Example: Before implementing FedEx API integration, we designed a sequence diagram showing:  
+    User → Controller → Service Layer → Repository → External API.</p>
+
+  <p><strong>9. How do Agile + Git + CI/CD work together in your project?</strong><br>
+    ✔ We work in Agile sprints → each feature goes into a Git branch.  
+    ✔ Create PR → reviewed → merged into develop branch.  
+    ✔ CI/CD pipeline automatically builds, runs tests, and deploys to Dev/QA.  
+    ✔ This ensures fast feedback and continuous delivery.</p>
+
+  <p><strong>10. What soft skills do you apply professionally?</strong><br>
+    ✔ Team collaboration (code reviews, pair programming).  
+    ✔ Clear communication in daily standups.  
+    ✔ Proactive problem-solving (raising risks early).  
+    ✔ Documentation for APIs and workflows.</p>
+      </div>
+      <div id="sessionAuthentication">
+  <h1>🔹 Session & Authentication in .NET – Interview Q&A</h1>
+
+  <p><strong>1. What is the difference between Authentication and Authorization?</strong><br>
+    ✔ <b>Authentication</b> → Verifying user identity (login process).  
+    ✔ <b>Authorization</b> → Determining what the authenticated user is allowed to access (roles/permissions).  
+    ✔ Example: Login with credentials = Authentication; Access only Admin pages = Authorization.</p>
+
+  <p><strong>2. How is Authentication implemented in ASP.NET Core?</strong><br>
+    ✔ ASP.NET Core uses the <code>Authentication Middleware</code>.  
+    ✔ Common methods:<br>
+    🔹 Cookie-based Authentication<br>
+    🔹 JWT (Bearer Token) Authentication<br>
+    🔹 OAuth2/OpenID Connect (Google, Azure AD)<br>
+    ✔ Example:<br>
+    <pre><code>builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =&gt; {
+        options.LoginPath = "/Account/Login";
+    });</code></pre></p>
+
+  <p><strong>3. What are Authentication Schemes?</strong><br>
+    ✔ A scheme is a named configuration for authentication (e.g., "Cookies", "Bearer").  
+    ✔ Multiple schemes can coexist → one for web app, one for API.  
+    ✔ Example: Cookies for MVC app + JWT for API.</p>
+
+  <p><strong>4. What is Session in ASP.NET Core?</strong><br>
+    ✔ Session is a way to store user data across requests (stateful).  
+    ✔ Data stored in key-value pairs on server (backed by memory, Redis, or SQL).  
+    ✔ Example:<br>
+    <pre><code>HttpContext.Session.SetString("UserName", "Rudra");
+var name = HttpContext.Session.GetString("UserName");</code></pre></p>
+
+  <p><strong>5. Difference between Session and Cookies?</strong><br>
+    ✔ <b>Session</b> → Server-side storage; user only gets Session ID cookie.  
+    ✔ <b>Cookie</b> → Client-side storage in the browser.  
+    ✔ Sessions expire when server is restarted (unless persisted in DB/Redis).  
+    ✔ Cookies persist until expiry time set in browser.</p>
+
+  <p><strong>6. How do you configure Session in .NET Core?</strong><br>
+    ✔ Add services in <code>Program.cs</code>:<br>
+    <pre><code>builder.Services.AddSession(options =&gt; {
+    options.IdleTimeout = TimeSpan.FromMinutes(20);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});</code></pre>
+    ✔ Enable middleware:<br>
+    <pre><code>app.UseSession();</code></pre></p>
+
+  <p><strong>7. What are JWT Tokens and why are they used?</strong><br>
+    ✔ JSON Web Tokens are compact, self-contained tokens used for authentication.  
+    ✔ Used in APIs and microservices → stateless and scalable.  
+    ✔ Structure: Header + Payload (claims) + Signature.  
+    ✔ Example usage in API:  
+    <pre><code>[Authorize]
+public IActionResult GetOrders() =&gt; Ok("Only authenticated users can see this.");</code></pre></p>
+
+  <p><strong>8. What’s the difference between Session Authentication and JWT Authentication?</strong><br>
+    ✔ Session-based → Server keeps track of user state (not scalable for large apps).  
+    ✔ JWT-based → Server validates token only, no session tracking (stateless, scalable).  
+    ✔ JWT is preferred for distributed apps & microservices.</p>
+
+  <p><strong>9. How do you implement Role-based Authorization in .NET Core?</strong><br>
+    ✔ Add claims/roles at login.  
+    ✔ Use <code>[Authorize(Roles="Admin")]</code> attribute in controllers.  
+    ✔ Example:<br>
+    <pre><code>[Authorize(Roles = "Admin")]
+public IActionResult AdminPanel() =&gt; View();</code></pre></p>
+
+  <p><strong>10. What are Claims in Authentication?</strong><br>
+    ✔ Claims = key-value pairs about the user (e.g., Email, Role, Department).  
+    ✔ JWT tokens carry claims in payload.  
+    ✔ Used by Authorization middleware to grant/deny access.</p>
+
+  <p><strong>11. How do you prevent Session Hijacking?</strong><br>
+    ✔ Always use HTTPS (secure cookies).  
+    ✔ Regenerate session ID on login.  
+    ✔ Set <code>HttpOnly</code> and <code>SameSite</code> cookie options.  
+    ✔ Use short session expiry + refresh token mechanism (for JWT).</p>
+
+  <p><strong>12. How do you logout a user in ASP.NET Core?</strong><br>
+    ✔ For Cookie Auth:<br>
+    <pre><code>await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);</code></pre>
+    ✔ For JWT → remove token from client (server is stateless, cannot force expire unless using token blacklist).</p>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
   </body>
   <script>
