@@ -1799,12 +1799,31 @@ public abstract class Animal { public abstract void Speak(); }</code></pre></p>
     Example:<br>
     <pre><code>List&lt;int&gt; numbers = new List&lt;int&gt; {1, 2, 3};</code></pre></p>
 
-  <p><strong>9. Explain the difference between IEnumerable, ICollection, and IList.</strong><br>
-    ✔ <code>IEnumerable</code> → Forward-only iteration.<br>
-    ✔ <code>ICollection</code> → Supports add/remove/count.<br>
-    ✔ <code>IList</code> → Indexed access + insertion.<br>
-    Example:<br>
-    <pre><code>IEnumerable&lt;int&gt; list = new List&lt;int&gt;();</code></pre></p>
+  <p><strong>9. Explain the difference between <code>IEnumerable</code>, <code>ICollection</code>, and <code>IList</code> in C#.</strong><br>
+✔ <strong>IEnumerable</strong> → Forward-only iteration, supports <code>foreach</code>, no add/remove/index access.<br>
+✔ <strong>ICollection</strong> → Extends <code>IEnumerable</code>, supports <code>Add</code>, <code>Remove</code>, <code>Count</code>, but no index access.<br>
+✔ <strong>IList</strong> → Extends <code>ICollection</code>, supports index-based access, insert, and remove by index.<br>
+Example:<br>
+<pre><code>// IEnumerable example
+IEnumerable&lt;int&gt; numbers = new List&lt;int&gt; { 1, 2, 3 };
+foreach (var num in numbers)
+{
+    Console.WriteLine(num); // Forward-only access
+}
+
+// ICollection example
+ICollection&lt;int&gt; collection = new List&lt;int&gt; { 1, 2, 3 };
+collection.Add(4);
+collection.Remove(2);
+Console.WriteLine(collection.Count); // Output: 3
+
+// IList example
+IList&lt;int&gt; list = new List&lt;int&gt; { 1, 2, 3 };
+list.Insert(1, 10);          // Insert 10 at index 1 → [1, 10, 2, 3]
+list.RemoveAt(0);            // Remove element at index 0 → [10, 2, 3]
+Console.WriteLine(list[1]);  // Output: 2 (index access)
+</code></pre>
+</p>
 
   <p><strong>10. What is the difference between Task and Thread?</strong><br>
     ✔ Thread → Low-level OS managed execution.<br>
