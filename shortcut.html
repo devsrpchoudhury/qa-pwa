@@ -389,11 +389,40 @@
 }
 </code></pre></p>
 
-        <p><strong>7. Can we inject multiple implementations of the same
-            interface?</strong><br>
-          Yes ✅ Register multiple and use <code>IEnumerable&lt;T&gt;</code>:<br>
-          <pre><code>public ReportService(IEnumerable&lt;IReportGenerator&gt; generators) { ... }</code></pre>
-          Or use named options/factory pattern for conditional resolution.</p>
+       <p><strong>7. Can we inject multiple implementations of the same interface?</strong><br>
+Yes ✅ — there are two main ways to handle this in .NET 8:</p>
+
+<ul>
+  <li>
+    <strong>1️⃣ Using <code>IEnumerable&lt;T&gt;</code> injection</strong><br>
+    Register multiple implementations normally in <code>Program.cs</code>:
+    <pre><code>builder.Services.AddTransient&lt;IReportGenerator, PdfReportGenerator&gt;();
+builder.Services.AddTransient&lt;IReportGenerator, ExcelReportGenerator&gt;();</code></pre>
+
+    Inject them as a collection:
+    <pre><code>public ReportService(IEnumerable&lt;IReportGenerator&gt; generators)
+{
+    foreach (var gen in generators)
+        gen.Generate();
+}</code></pre>
+  </li>
+
+  <li>
+    <strong>2️⃣ Using <code>Keyed Services</code> (available in .NET 8+)</strong><br>
+    Register each implementation with a unique key:
+    <pre><code>builder.Services.AddKeyedTransient&lt;IMessageService, EmailService&gt;("email");
+builder.Services.AddKeyedTransient&lt;IMessageService, SmsService&gt;("sms");</code></pre>
+
+    Inject a specific one using the <code>[FromKeyedServices]</code> attribute:
+    <pre><code>public NotificationService([FromKeyedServices("email")] IMessageService emailService)
+{
+    _emailService = emailService;
+}</code></pre>
+  </li>
+</ul>
+
+<p>👉 This makes it easy to either use <strong>all implementations</strong> or <strong>target a specific one</strong> cleanly and efficiently.</p>
+
 
         <p><strong>8. What is the difference between AddSingleton, AddScoped,
             and
