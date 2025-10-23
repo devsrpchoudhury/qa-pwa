@@ -2011,20 +2011,20 @@ Now, if someone tries to inherit it:</p>
 
  
 
-  <p><strong>3. What is Garbage Collection in .NET?</strong><br>
+  <p><strong>2. What is Garbage Collection in .NET?</strong><br>
     Automatic memory management that frees unused objects in Heap.<br>
     ✔ Runs in background.<br>
     ✔ Divides memory into Generations (0,1,2).<br>
     ✔ Improves performance by compacting memory.</p>
 
 
-  <p><strong>6. What is the difference between Task and Thread?</strong><br>
+  <p><strong>3. What is the difference between Task and Thread?</strong><br>
     ✔ Thread → Low-level unit of execution, managed manually.<br>
     ✔ Task → High-level abstraction built on threads, easier async programming.<br>
     Example:<br>
     <pre><code>await Task.Run(() =&gt; Console.WriteLine("Running async"));</code></pre></p>
 
-  <p><strong>7. Explain async and await in C#.</strong><br>
+  <p><strong>4. Explain async and await in C#.</strong><br>
     Used for asynchronous programming to avoid blocking the main thread.<br>
     Example:<br>
     <pre><code>public async Task&lt;string&gt; GetDataAsync()
@@ -2033,14 +2033,14 @@ Now, if someone tries to inherit it:</p>
     return "Data received";
 }</code></pre></p>
 
-  <p><strong>8. What is Entity Framework Core?</strong><br>
+  <p><strong>5. What is Entity Framework Core?</strong><br>
     ✔ ORM (Object Relational Mapper).<br>
     ✔ Maps C# classes to DB tables.<br>
     ✔ Supports LINQ for queries.<br>
     Example:<br>
     <pre><code>var users = await _dbContext.Users.ToListAsync();</code></pre></p>
 
-  <p><strong>9. What is Middleware in ASP.NET Core?</strong><br>
+  <p><strong>6. What is Middleware in ASP.NET Core?</strong><br>
     Middleware are components in the HTTP request pipeline.<br>
     Example order: Authentication → Routing → Controller → Response.<br>
     Example:<br>
@@ -2049,14 +2049,14 @@ Now, if someone tries to inherit it:</p>
     await next();
 });</code></pre></p>
 
-  <p><strong>10. Explain Difference Between AddSingleton, AddScoped, and AddTransient.</strong><br>
+  <p><strong>7. Explain Difference Between AddSingleton, AddScoped, and AddTransient.</strong><br>
     ✔ Singleton → One instance for the entire app.<br>
     ✔ Scoped → One instance per HTTP request.<br>
     ✔ Transient → New instance each time.<br>
     Example:<br>
     <pre><code>builder.Services.AddScoped&lt;IUserService, UserService&gt;();</code></pre></p>
 
-  <p><strong>11. What are Controllers and Action Methods in ASP.NET Core?</strong><br>
+  <p><strong>8. What are Controllers and Action Methods in ASP.NET Core?</strong><br>
     ✔ Controller → Handles requests and returns responses.<br>
     ✔ Action → A method inside a controller.<br>
     Example:<br>
@@ -2064,24 +2064,24 @@ Now, if someone tries to inherit it:</p>
    public IActionResult Index() =&gt; View();
 }</code></pre></p>
 
-  <p><strong>12. What is Model Binding in ASP.NET Core?</strong><br>
+  <p><strong>9. What is Model Binding in ASP.NET Core?</strong><br>
     Converts HTTP request data into C# objects automatically.<br>
     Example:<br>
     <pre><code>public IActionResult Save(User user) { ... }</code></pre>
     If form has input <code>name="UserName"</code>, it will bind to <code>user.UserName</code>.</p>
 
-  <p><strong>13. Difference between SQL Joins (Inner, Left, Right, Full)?</strong><br>
+  <p><strong>10. Difference between SQL Joins (Inner, Left, Right, Full)?</strong><br>
     ✔ INNER JOIN → Common records in both tables.<br>
     ✔ LEFT JOIN → All records from left + matching from right.<br>
     ✔ RIGHT JOIN → All records from right + matching from left.<br>
     ✔ FULL JOIN → All records from both tables.</p>
 
-  <p><strong>14. What is LINQ?</strong><br>
+  <p><strong>11. What is LINQ?</strong><br>
     Language Integrated Query → Used to query collections/DB in C#.<br>
     Example:<br>
     <pre><code>var result = users.Where(u =&gt; u.Age &gt; 25).ToList();</code></pre></p>
 
-  <p><strong>15. How to handle exceptions in .NET?</strong><br>
+  <p><strong>12. How to handle exceptions in .NET?</strong><br>
     Using try-catch-finally or global exception middleware.<br>
     Example:<br>
     <pre><code>try { ... } 
