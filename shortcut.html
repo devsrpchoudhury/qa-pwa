@@ -1809,24 +1809,90 @@ int y = (int)obj;       // Unboxing</code></pre></p>
     <pre><code>public interface IAnimal { void Speak(); }
 public abstract class Animal { public abstract void Speak(); }</code></pre></p>
 
-  <p><strong>6. Explain Static vs Instance members in C#.</strong><br>
-    ✔ Static → Belongs to the type, not object. Only one copy exists.<br>
-    ✔ Instance → Belongs to individual objects.<br>
-    Example:<br>
-    <pre><code>public class Counter {
-   public static int Count = 0;
-   public Counter() { Count++; }
-}</code></pre></p>
+ <p><strong>6. Explain Static vs Instance members in C#.</strong><br>
+In C#, <strong>Static members</strong> belong to the <strong>class itself</strong> and are shared by all objects, while <strong>Instance members</strong> belong to a specific object of that class.<br><br>
+
+✅ <strong>Static Members:</strong><br>
+<ul>
+  <li>Declared using the <code>static</code> keyword.</li>
+  <li>Shared among all instances — only one copy exists.</li>
+  <li>Accessed using the class name (no object needed).</li>
+  <li>Useful for global data or utility functions (e.g., <code>Math.Max()</code>).</li>
+</ul>
+
+✅ <strong>Instance Members:</strong><br>
+<ul>
+  <li>Each object has its own copy of instance fields.</li>
+  <li>Accessed through the object reference.</li>
+  <li>Used when data or behavior differs per object.</li>
+</ul>
+
+💡 <strong>Example:</strong><br>
+<pre><code>
+public class Employee
+{
+    public static int TotalEmployees = 0;  // Static member - shared
+    public string Name;                    // Instance member - unique per object
+
+    public Employee(string name)
+    {
+        Name = name;
+        TotalEmployees++; // Increments shared counter
+    }
+
+    public void ShowInfo()
+    {
+        Console.WriteLine($"Employee: {Name}");
+    }
+}
+
+// Usage:
+var e1 = new Employee("John");
+var e2 = new Employee("Sara");
+
+Console.WriteLine(Employee.TotalEmployees); // Output: 2
+e1.ShowInfo(); // Output: Employee: John
+</code></pre>
+
+👉 <strong>Explanation:</strong><br>
+<ul>
+  <li><code>TotalEmployees</code> is shared by all Employee objects (static).</li>
+  <li><code>Name</code> is different for each object (instance).</li>
+</ul>
+</p>
+
 
   <p><strong>7. What is the difference between const, readonly, and static?</strong><br>
     ✔ <code>const</code> → Compile-time constant, must be assigned at declaration.<br>
     ✔ <code>readonly</code> → Assigned at runtime (in constructor).<br>
     ✔ <code>static</code> → Belongs to type, not instance.</p>
 
-  <p><strong>8. What are Generics in C#?</strong><br>
-    Generics allow type-safe data structures without boxing/unboxing.<br>
-    Example:<br>
-    <pre><code>List&lt;int&gt; numbers = new List&lt;int&gt; {1, 2, 3};</code></pre></p>
+<p><strong>8. What are Generics in C#?</strong><br>
+Generics allow you to create <strong>type-safe classes, methods, and interfaces</strong> that work with any data type 
+<strong>without sacrificing performance or code reusability</strong>.</p>
+
+<pre><code>// Example: Generic class
+public class Box&lt;T&gt;
+{
+    public T Value { get; set; }
+}
+
+// Usage
+Box&lt;int&gt; intBox = new Box&lt;int&gt; { Value = 100 };
+Box&lt;string&gt; strBox = new Box&lt;string&gt; { Value = "Hello" };
+</code></pre>
+
+<p><strong>Key Points:</strong></p>
+<ul>
+  <li>Defined using <code>&lt;T&gt;</code> where <code>T</code> is a type placeholder.</li>
+  <li>Improves <strong>type safety</strong> by avoiding boxing/unboxing and runtime errors.</li>
+  <li>Used in collections like <code>List&lt;T&gt;</code>, <code>Dictionary&lt;TKey, TValue&gt;</code>.</li>
+  <li>Can apply constraints using <code>where</code> (e.g., <code>where T : class</code>).</li>
+</ul>
+
+<p><strong>✅ In short:</strong> Generics make code <strong>reusable, type-safe, and efficient</strong> by allowing 
+you to work with different data types without duplication.</p>
+
 
   <p><strong>9. Explain the difference between <code>IEnumerable</code>, <code>ICollection</code>, and <code>IList</code> in C#.</strong><br>
 ✔ <strong>IEnumerable</strong> → Forward-only iteration, supports <code>foreach</code>, no add/remove/index access.<br>
@@ -1877,11 +1943,31 @@ Console.WriteLine(list[1]);  // Output: 2 (index access)
 sb.Append(" there");</code></pre></p>
 
   <p><strong>13. What are Extension Methods in C#?</strong><br>
-    ✔ Allow adding new methods to existing types without modifying them.<br>
-    Example:<br>
-    <pre><code>public static class Extensions {
-   public static bool IsEven(this int number) =&gt; number % 2 == 0;
-}</code></pre></p>
+Extension methods are special static methods that let you <strong>add new functionality</strong> to an existing class 
+<strong>without modifying its source code</strong> or creating a derived class.</p>
+
+<pre><code>// Example: Add a new method to the string class
+public static class StringExtensions
+{
+    public static bool IsCapitalized(this string str)
+    {
+        return !string.IsNullOrEmpty(str) && char.IsUpper(str[0]);
+    }
+}
+
+// Usage
+string name = "Rudra";
+bool result = name.IsCapitalized(); // ✅ Looks like an instance method
+</code></pre>
+
+<p><strong>Key Points:</strong></p>
+<ul>
+  <li>Must be defined in a <code>static class</code>.</li>
+  <li>The first parameter has <code>this</code> before the type it extends.</li>
+  <li>Commonly used to extend <code>System</code> or <code>custom</code> classes (e.g., LINQ methods like <code>Select</code>, <code>Where</code>).</li>
+</ul>
+
+<p><strong>✅ In short:</strong> Extension methods help make code cleaner and reusable without changing the original class.</p>
 
   <p><strong>14. What is the difference between IEnumerable and IQueryable?</strong><br>
     ✔ IEnumerable → Executes in-memory, LINQ-to-Objects.<br>
@@ -1894,7 +1980,26 @@ sb.Append(" there");</code></pre></p>
     Example:<br>
     <pre><code>try { int x = 5/0; }
 catch(Exception ex) { Console.WriteLine(ex.Message); }</code></pre></p>
+<p><strong>16. How do we restrict a class from being inherited by another class?</strong><br>
+We can use the <code>sealed</code> keyword to prevent a class from being extended.<br>
+
+<pre><code>public sealed class Logger
+{
+    public void Log(string message)
+    {
+        Console.WriteLine(message);
+    }
+}</code></pre>
+
+Now, if someone tries to inherit it:</p>
+
+<pre><code>public class FileLogger : Logger { } // ❌ Error: 'Logger' is sealed and cannot be inherited</code></pre>
+
+<p><strong>✅ Use case:</strong> When you want to prevent further extension — for example, for utility or helper classes where modification through inheritance should be avoided.</p>
+
       </div>
+
+
       <div id="dotnetInterview">
         
   <h1>🔹 C# / .NET Core – Interview Q&A </h1>
@@ -1904,12 +2009,7 @@ catch(Exception ex) { Console.WriteLine(ex.Message); }</code></pre></p>
     ✔ .NET Core → Cross-platform (Windows, Linux, macOS), open-source, lightweight, and high performance.<br>
     ✔ Now unified into <code>.NET 5+</code>.</p>
 
-  <p><strong>2. What is the difference between Value Types and Reference Types?</strong><br>
-    🔹 Value Types → Stored in Stack (e.g., int, struct, bool).<br>
-    🔹 Reference Types → Stored in Heap, variable holds reference (e.g., class, object, string).<br>
-    Example:<br>
-    <pre><code>int x = 10;   // Value type
-string y = "Hello";  // Reference type</code></pre></p>
+ 
 
   <p><strong>3. What is Garbage Collection in .NET?</strong><br>
     Automatic memory management that frees unused objects in Heap.<br>
@@ -1917,19 +2017,6 @@ string y = "Hello";  // Reference type</code></pre></p>
     ✔ Divides memory into Generations (0,1,2).<br>
     ✔ Improves performance by compacting memory.</p>
 
-  <p><strong>4. What are Access Modifiers in C#?</strong><br>
-    🔹 <code>public</code> → Accessible everywhere.<br>
-    🔹 <code>private</code> → Only within the class.<br>
-    🔹 <code>protected</code> → Class + derived classes.<br>
-    🔹 <code>internal</code> → Same assembly.<br>
-    🔹 <code>protected internal</code> → Combination of protected + internal.</p>
-
-  <p><strong>5. What is the difference between Abstract Class and Interface?</strong><br>
-    ✔ Abstract class → Can have fields, constructors, and implemented methods.<br>
-    ✔ Interface → Only method/property signatures (C# 8 allows default methods).<br>
-    Example:<br>
-    <pre><code>public interface IAnimal { void Speak(); }
-public abstract class Animal { public abstract void Speak(); }</code></pre></p>
 
   <p><strong>6. What is the difference between Task and Thread?</strong><br>
     ✔ Thread → Low-level unit of execution, managed manually.<br>
